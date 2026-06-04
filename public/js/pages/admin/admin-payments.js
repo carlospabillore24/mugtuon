@@ -86,15 +86,15 @@ async function _loadPaymentsPage(app, page) {
                     <span class="dashboard-stat-card__label">Pending</span>
                     <span class="dashboard-stat-card__icon">⏳</span>
                 </div>
-                <div class="dashboard-stat-card__value">${s.pending_count}</div>
-                <div class="dashboard-stat-card__change">${Helpers.formatCurrency(s.pending_amount)} awaiting</div>
+                <div class="dashboard-stat-card__value">${s.pending_count ?? 0}</div>
+                <div class="dashboard-stat-card__change">${Helpers.formatCurrency(s.pending_amount ?? 0)} awaiting</div>
             </div>
             <div class="dashboard-stat-card">
                 <div class="dashboard-stat-card__header">
                     <span class="dashboard-stat-card__label">Refunds</span>
                     <span class="dashboard-stat-card__icon">↩️</span>
                 </div>
-                <div class="dashboard-stat-card__value">${s.refunded_count}</div>
+                <div class="dashboard-stat-card__value">${s.refunded_count ?? 0}</div>
                 <div class="dashboard-stat-card__change" style="color:var(--color-warning)">Total refunded</div>
             </div>
         </div>
@@ -226,8 +226,8 @@ async function _loadPaymentsPage(app, page) {
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
                             <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${Helpers.formatCurrency(s.total_revenue)}</div><div class="stat__label">Total Revenue</div></div>
                             <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${Helpers.formatCurrency(s.monthly_revenue)}</div><div class="stat__label">This Month</div></div>
-                            <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${s.pending_count}</div><div class="stat__label">Pending</div></div>
-                            <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${s.refunded_count}</div><div class="stat__label">Refunded</div></div>
+                            <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${s.pending_count ?? 0}</div><div class="stat__label">Pending</div></div>
+                            <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${s.refunded_count ?? 0}</div><div class="stat__label">Refunded</div></div>
                         </div>
                     </div>
                 </div>

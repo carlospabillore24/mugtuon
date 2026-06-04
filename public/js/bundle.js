@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-04 06:56:48 */
+/* MugTuon Bundle — generated 2026-06-04 13:35:55 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -6350,15 +6350,15 @@ async function _loadPaymentsPage(app, page) {
                     <span class="dashboard-stat-card__label">Pending</span>
                     <span class="dashboard-stat-card__icon">⏳</span>
                 </div>
-                <div class="dashboard-stat-card__value">${s.pending_count}</div>
-                <div class="dashboard-stat-card__change">${Helpers.formatCurrency(s.pending_amount)} awaiting</div>
+                <div class="dashboard-stat-card__value">${s.pending_count ?? 0}</div>
+                <div class="dashboard-stat-card__change">${Helpers.formatCurrency(s.pending_amount ?? 0)} awaiting</div>
             </div>
             <div class="dashboard-stat-card">
                 <div class="dashboard-stat-card__header">
                     <span class="dashboard-stat-card__label">Refunds</span>
                     <span class="dashboard-stat-card__icon">↩️</span>
                 </div>
-                <div class="dashboard-stat-card__value">${s.refunded_count}</div>
+                <div class="dashboard-stat-card__value">${s.refunded_count ?? 0}</div>
                 <div class="dashboard-stat-card__change" style="color:var(--color-warning)">Total refunded</div>
             </div>
         </div>
@@ -6490,8 +6490,8 @@ async function _loadPaymentsPage(app, page) {
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
                             <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${Helpers.formatCurrency(s.total_revenue)}</div><div class="stat__label">Total Revenue</div></div>
                             <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${Helpers.formatCurrency(s.monthly_revenue)}</div><div class="stat__label">This Month</div></div>
-                            <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${s.pending_count}</div><div class="stat__label">Pending</div></div>
-                            <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${s.refunded_count}</div><div class="stat__label">Refunded</div></div>
+                            <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${s.pending_count ?? 0}</div><div class="stat__label">Pending</div></div>
+                            <div class="stat"><div class="stat__value" style="font-size:var(--text-lg)">${s.refunded_count ?? 0}</div><div class="stat__label">Refunded</div></div>
                         </div>
                     </div>
                 </div>
@@ -7638,7 +7638,7 @@ function _screenshotToggleHtml(method, checked) {
 
 // ─── Card renderer ─────────────────────────────────────────────────────
 function _renderMethodCard(s) {
-    const d = s.details || {};
+    const d = (typeof s.details === 'string' ? JSON.parse(s.details) : s.details) || {};
     let detailsHtml = '';
 
     if ('instruction' in d) {
@@ -7863,7 +7863,7 @@ async function savePaymentMethod(method) {
     const icon    = document.getElementById(`${method}-icon`)?.value.trim()  || s.icon;
     const enabled = document.getElementById(`${method}-enabled`)?.checked ?? s.is_enabled;
 
-    const d = s.details || {};
+    const d = (typeof s.details === 'string' ? JSON.parse(s.details) : s.details) || {};
     let details = {};
     if ('instruction' in d) {
         details = { instruction: document.getElementById(`${method}-instruction`)?.value.trim() || '' };

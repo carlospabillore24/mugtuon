@@ -180,7 +180,7 @@ function _screenshotToggleHtml(method, checked) {
 
 // ─── Card renderer ─────────────────────────────────────────────────────
 function _renderMethodCard(s) {
-    const d = s.details || {};
+    const d = (typeof s.details === 'string' ? JSON.parse(s.details) : s.details) || {};
     let detailsHtml = '';
 
     if ('instruction' in d) {
@@ -405,7 +405,7 @@ async function savePaymentMethod(method) {
     const icon    = document.getElementById(`${method}-icon`)?.value.trim()  || s.icon;
     const enabled = document.getElementById(`${method}-enabled`)?.checked ?? s.is_enabled;
 
-    const d = s.details || {};
+    const d = (typeof s.details === 'string' ? JSON.parse(s.details) : s.details) || {};
     let details = {};
     if ('instruction' in d) {
         details = { instruction: document.getElementById(`${method}-instruction`)?.value.trim() || '' };
