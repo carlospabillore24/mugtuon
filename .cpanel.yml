@@ -1,19 +1,15 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/tvhnuopc/public_html
-    - /bin/cp -f .htaccess "$DEPLOYPATH/.htaccess"
-    # Backend
-    - /bin/cp -Rf php/ "$DEPLOYPATH/php/"
-    # Frontend (explicit to avoid overwriting uploads/)
-    - /bin/cp -f public/index.html "$DEPLOYPATH/public/index.html"
-    - /bin/cp -f public/seo.php "$DEPLOYPATH/public/seo.php"
-    - /bin/cp -f public/sw.js "$DEPLOYPATH/public/sw.js"
-    - /bin/cp -f public/manifest.json "$DEPLOYPATH/public/manifest.json"
-    - /bin/cp -f public/robots.txt "$DEPLOYPATH/public/robots.txt"
-    - /bin/cp -f public/sitemap.xml "$DEPLOYPATH/public/sitemap.xml"
-    - /bin/cp -Rf public/js/ "$DEPLOYPATH/public/js/"
-    - /bin/cp -Rf public/css/ "$DEPLOYPATH/public/css/"
-    - /bin/cp -Rf public/images/ "$DEPLOYPATH/public/images/"
-    # Database schema + migrations (reference only, won't auto-run)
-    - /bin/cp -Rf mysql/ "$DEPLOYPATH/mysql/"
+    - /bin/cp -f .htaccess /home/tvhnuopc/public_html/.htaccess
+    - /bin/cp -Rf php/ /home/tvhnuopc/public_html/php/
+    - /bin/cp -f public/index.html /home/tvhnuopc/public_html/public/index.html
+    - /bin/cp -f public/seo.php /home/tvhnuopc/public_html/public/seo.php
+    - /bin/cp -f public/sw.js /home/tvhnuopc/public_html/public/sw.js
+    - /bin/cp -f public/manifest.json /home/tvhnuopc/public_html/public/manifest.json
+    - /bin/cp -f public/robots.txt /home/tvhnuopc/public_html/public/robots.txt
+    - /bin/cp -f public/sitemap.xml /home/tvhnuopc/public_html/public/sitemap.xml
+    - /bin/cp -Rf public/js/ /home/tvhnuopc/public_html/public/js/
+    - /bin/cp -Rf public/css/ /home/tvhnuopc/public_html/public/css/
+    - /bin/cp -Rf public/images/ /home/tvhnuopc/public_html/public/images/
+    - /bin/cp -Rf mysql/ /home/tvhnuopc/public_html/mysql/
