@@ -1,15 +1,20 @@
 ---
 deployment:
   tasks:
-    - /bin/cp -f .htaccess /home/tvhnuopc/public_html/.htaccess
-    - /bin/cp -Rf php/ /home/tvhnuopc/public_html/php/
-    - /bin/cp -f public/index.html /home/tvhnuopc/public_html/public/index.html
-    - /bin/cp -f public/seo.php /home/tvhnuopc/public_html/public/seo.php
-    - /bin/cp -f public/sw.js /home/tvhnuopc/public_html/public/sw.js
-    - /bin/cp -f public/manifest.json /home/tvhnuopc/public_html/public/manifest.json
-    - /bin/cp -f public/robots.txt /home/tvhnuopc/public_html/public/robots.txt
-    - /bin/cp -f public/sitemap.xml /home/tvhnuopc/public_html/public/sitemap.xml
-    - /bin/cp -Rf public/js/ /home/tvhnuopc/public_html/public/js/
-    - /bin/cp -Rf public/css/ /home/tvhnuopc/public_html/public/css/
-    - /bin/cp -Rf public/images/ /home/tvhnuopc/public_html/public/images/
-    - /bin/cp -Rf mysql/ /home/tvhnuopc/public_html/mysql/
+    - mkdir -p /home/tvhnuopc/public_html/public/js
+    - mkdir -p /home/tvhnuopc/public_html/public/css
+    - mkdir -p /home/tvhnuopc/public_html/public/images
+    - mkdir -p /home/tvhnuopc/public_html/php/routes
+    - mkdir -p /home/tvhnuopc/public_html/mysql/migrations
+    - /bin/cp -f /home/tvhnuopc/mugtuon-repo/.htaccess /home/tvhnuopc/public_html/.htaccess
+    - /bin/cp -Rf /home/tvhnuopc/mugtuon-repo/php/ /home/tvhnuopc/public_html/php/
+    - /bin/cp -f /home/tvhnuopc/mugtuon-repo/public/index.html /home/tvhnuopc/public_html/public/index.html
+    - /bin/cp -f /home/tvhnuopc/mugtuon-repo/public/seo.php /home/tvhnuopc/public_html/public/seo.php
+    - /bin/cp -f /home/tvhnuopc/mugtuon-repo/public/sw.js /home/tvhnuopc/public_html/public/sw.js
+    - /bin/cp -f /home/tvhnuopc/mugtuon-repo/public/manifest.json /home/tvhnuopc/public_html/public/manifest.json
+    - /bin/cp -f /home/tvhnuopc/mugtuon-repo/public/robots.txt /home/tvhnuopc/public_html/public/robots.txt
+    - /bin/cp -f /home/tvhnuopc/mugtuon-repo/public/sitemap.xml /home/tvhnuopc/public_html/public/sitemap.xml
+    - /bin/cp -Rf /home/tvhnuopc/mugtuon-repo/public/js/ /home/tvhnuopc/public_html/public/js/
+    - /bin/cp -Rf /home/tvhnuopc/mugtuon-repo/public/css/ /home/tvhnuopc/public_html/public/css/
+    - /bin/cp -Rf /home/tvhnuopc/mugtuon-repo/public/images/ /home/tvhnuopc/public_html/public/images/
+    - /bin/cp -Rf /home/tvhnuopc/mugtuon-repo/mysql/ /home/tvhnuopc/public_html/mysql/
