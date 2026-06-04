@@ -1,0 +1,47 @@
+# =============================================================================
+# MugTuon  —  Root .htaccess (Apache)
+# =============================================================================
+
+RewriteEngine On
+DirectoryIndex disabled
+Options -Indexes +FollowSymLinks
+
+# ── PHP upload limits (ini_set is a no-op for these directives) ───────────
+php_value post_max_size 3M
+php_value upload_max_filesize 3M
+
+# ── Block direct access to sensitive files ─────────────────────────────────
+<FilesMatch "^\.env(\.php)?$">
+    Require all denied
+</FilesMatch>
+
+# ── Pass Authorization header to PHP (Apache strips it by default) ─────────
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# ── API routes → PHP backend ────────────────────────────────────────────────
+RewriteRule ^api/(.*)$ php/index.php [QSA,L]
+
+# ── PHP backend files: serve directly ───────────────────────────────────────
+RewriteRule ^php/ - [L]
+
+# ── Files already under public/: pass through to Apache file serving ────────
+RewriteRule ^public/ - [L]
+
+# ── Root URL → SEO handler (injects route-specific meta tags) ─────────────
+RewriteRule ^$ public/seo.php [L]
+
+# ── Static assets: rewrite css/, js/, images/, uploads/ to public/ ─────────
+RewriteRule ^(css/.*)$     public/$1 [L]
+RewriteRule ^(js/.*)$      public/$1 [L]
+RewriteRule ^(images/.*)$  public/$1 [L]
+RewriteRule ^(uploads/.*)$ public/$1 [L]
+
+# ── Root-level static files (SEO, PWA) → public/ ──────────────────────────
+RewriteRule ^(robots\.txt|sitemap\.xml|manifest\.json|sw\.js)$ public/$1 [L]
+
+# ── favicon.ico → PNG logo (#5) ───────────────────────────────────────────
+RewriteRule ^favicon\.ico$ public/images/logo-icon.png [L]
+
+# ── SPA fallback → SEO handler (#6 — route-specific meta tags for crawlers)
+RewriteRule ^ public/seo.php [L]

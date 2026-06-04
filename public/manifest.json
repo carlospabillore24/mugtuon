@@ -1,0 +1,21 @@
+{
+  "name": "MugTuon Learning Hub & Cafe",
+  "short_name": "MugTuon",
+  "description": "Your premium study hub, coworking space, and productivity ecosystem.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF6F1",
+  "theme_color": "#543020",
+  "icons": [
+    {
+      "src": "images/logo-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo-social.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

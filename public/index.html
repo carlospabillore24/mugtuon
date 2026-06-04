@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MugTuon Learning Hub & Cafe — Your premium study hub, coworking space, and productivity ecosystem. Book spaces, track focus, climb leaderboards.">
+    <meta name="theme-color" content="#543020">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MugTuon Learning Hub & Cafe">
+    <meta property="og:description" content="Your premium study hub, coworking space, and productivity ecosystem. Book spaces, track focus, climb leaderboards.">
+    <meta property="og:image" content="images/logo-social.png">
+    <meta property="og:url" content="https://mugtuon.com/">
+    <meta property="og:site_name" content="MugTuon">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MugTuon Learning Hub & Cafe">
+    <meta name="twitter:description" content="Your premium study hub, coworking space, and productivity ecosystem.">
+    <meta name="twitter:image" content="images/logo-social.png">
+
+    <title>MugTuon Learning Hub & Cafe</title>
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/layouts.css">
+    <link rel="stylesheet" href="css/pages.css">
+
+    <link rel="icon" href="images/logo-icon.png" type="image/png">
+    <link rel="shortcut icon" href="images/logo-icon.png" type="image/png">
+
+    <!-- SEO: noscript fallback for crawlers (#6) -->
+    <noscript>
+        <style>body{font-family:sans-serif;padding:40px;max-width:800px;margin:0 auto}</style>
+    </noscript>
+</head>
+<body>
+    <a href="#main-content" class="skip-nav" style="position:absolute;top:-40px;left:0;background:var(--color-accent);color:#fff;padding:8px 16px;z-index:10000;transition:top .2s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Skip to main content</a>
+
+    <!-- Offline banner (#18) -->
+    <div id="offline-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#dc3545;color:#fff;text-align:center;padding:8px 16px;font-size:14px;font-family:var(--font-sans,sans-serif)">
+        You are offline. Some features may be unavailable.
+        <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:#fff;margin-left:12px;cursor:pointer;font-size:16px">&times;</button>
+    </div>
+
+    <div id="route-loader"><div class="route-loader__bar"></div></div>
+    <div id="app"></div>
+
+    <div class="toast-container" id="toasts" role="alert" aria-live="polite"></div>
+
+    <!-- Noscript fallback for crawlers (#6) -->
+    <noscript>
+        <h1>MugTuon Learning Hub &amp; Cafe</h1>
+        <p>Your premium study hub, coworking space, and productivity ecosystem. Book spaces, track focus, climb leaderboards.</p>
+        <nav>
+            <a href="/">Home</a> |
+            <a href="/about">About</a> |
+            <a href="/pricing">Pricing</a> |
+            <a href="/contact">Contact</a> |
+            <a href="/login">Sign In</a> |
+            <a href="/register">Register</a> |
+            <a href="/terms">Terms</a> |
+            <a href="/privacy">Privacy</a>
+        </nav>
+    </noscript>
+
+    <!-- Production: single bundle (run: php tools/build.php) -->
+    <script defer src="js/lib/html5-qrcode.min.js"></script>
+    <script defer src="js/bundle.js"></script>
+    <!-- Development: uncomment individual files below, comment out bundle above
+    <script defer src="js/utils/store.js"></script>
+    <script defer src="js/utils/api.js"></script>
+    <script defer src="js/utils/helpers.js"></script>
+    <script defer src="js/router.js?v=4"></script>
+    <script defer src="js/components/header.js"></script>
+    <script defer src="js/components/footer.js"></script>
+    <script defer src="js/components/sidebar.js"></script>
+    <script defer src="js/components/timer.js"></script>
+    <script defer src="js/pages/home.js"></script>
+    <script defer src="js/pages/about.js"></script>
+    <script defer src="js/pages/pricing.js"></script>
+    <script defer src="js/pages/contact.js"></script>
+    <script defer src="js/pages/login.js"></script>
+    <script defer src="js/pages/forgot-password.js"></script>
+    <script defer src="js/pages/reset-password.js"></script>
+    <script defer src="js/pages/verify-email.js"></script>
+    <script defer src="js/pages/register.js"></script>
+    <script defer src="js/pages/terms.js"></script>
+    <script defer src="js/pages/privacy.js"></script>
+    <script defer src="js/pages/checkout.js"></script>
+    <script defer src="js/pages/dashboard.js"></script>
+    <script defer src="js/pages/profile.js"></script>
+    <script defer src="js/pages/subscription.js"></script>
+    <script defer src="js/pages/bookings.js"></script>
+    <script defer src="js/pages/leaderboard.js"></script>
+    <script defer src="js/pages/achievements.js"></script>
+    <script defer src="js/pages/analytics.js"></script>
+    <script defer src="js/pages/admin/admin-dashboard.js"></script>
+    <script defer src="js/pages/admin/admin-users.js"></script>
+    <script defer src="js/lib/html5-qrcode.min.js"></script>
+    <script defer src="js/pages/admin/admin-bookings.js"></script>
+    <script defer src="js/pages/admin/admin-analytics.js"></script>
+    <script defer src="js/pages/admin/admin-payments.js"></script>
+    <script defer src="js/pages/admin/admin-spaces.js"></script>
+    <script defer src="js/pages/admin/admin-plans.js"></script>
+    <script defer src="js/pages/admin/admin-payment-settings.js"></script>
+    <script defer src="js/pages/admin/admin-contact.js"></script>
+    <script defer src="js/pages/admin/admin-achievements.js"></script>
+    <script defer src="js/pages/admin/admin-announcements.js"></script>
+    <script defer src="js/pages/admin/admin-audit.js"></script>
+    <script defer src="js/pages/admin/admin-site-settings.js"></script>
+    <script defer src="js/pages/404.js"></script>
+    <script defer src="js/app.js"></script>
+    -->
+
+    <!-- Offline detection (#18) + Service worker registration (#19) -->
+    <script>
+    window.addEventListener('offline', function(){ document.getElementById('offline-banner').style.display='block'; });
+    window.addEventListener('online', function(){ document.getElementById('offline-banner').style.display='none'; });
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(function(){}); }
+    </script>
+</body>
+</html>

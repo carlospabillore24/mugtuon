@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.php
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editor
+.vscode/
+.idea/
+launch.json
+
+# Claude Code
+.claude/
+settings.local.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Rate limiter temp files
+mugtuon_rl/
+
+# User uploads (server-only, never overwrite)
+public/uploads/avatars/*
+public/uploads/proofs/*
+!public/uploads/.htaccess
+
+# Backups and logs directories
+logs/
+backups/
+
+# Legacy Node.js backend (inactive)
+server/
+
+# Test / scratch files
+test.php
+server_test.log
+
+# Build artifacts
+*.bak
+*.swp
+*~
