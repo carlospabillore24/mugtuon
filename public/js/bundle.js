@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-05 15:52:24 */
+/* MugTuon Bundle — generated 2026-06-05 16:05:07 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -3850,7 +3850,7 @@ async function renderBookingsPage(app) {
     _allUserBookings = [];
     _bookingHistoryPage = 1;
 
-    const today = new Date().toISOString().split('T')[0];
+    const _n = new Date(); const today = _n.getFullYear() + '-' + String(_n.getMonth() + 1).padStart(2, '0') + '-' + String(_n.getDate()).padStart(2, '0');
 
     app.innerHTML = renderAppLayout(
         `<div style="padding:var(--space-8);text-align:center;color:var(--color-text-muted)">Loading spaces...</div>`,
@@ -3892,6 +3892,13 @@ function _getBookedSlotsFromSpaces(spaces, date) {
         }
     }
     return slots;
+}
+
+function _isSlotPast(slot, dateVal) {
+    const now = new Date();
+    const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+    if (dateVal !== todayStr) return false;
+    return parseInt(slot) <= now.getHours();
 }
 
 function _renderBookingLayout(app, spaces, bookedSlots, today) {
@@ -3952,12 +3959,18 @@ function _renderBookingLayout(app, spaces, bookedSlots, today) {
                         <div class="form-group">
                             <label class="form-label">Time Slots (select start hours)</label>
                             <div class="time-slots" id="timeSlots">
-                                ${timeSlots.map(t => `
-                                    <div class="time-slot ${bookedSlots.includes(t) ? 'time-slot--booked' : ''}"
-                                         onclick="${bookedSlots.includes(t) ? '' : `toggleTimeSlot('${t}',this)`}"
-                                         ${bookedSlots.includes(t) ? 'title="Already booked"' : ''}>
+                                ${timeSlots.map(t => {
+                                    const booked = bookedSlots.includes(t);
+                                    const past = _isSlotPast(t, today);
+                                    const disabled = booked || past;
+                                    const cls = booked ? 'time-slot--booked' : past ? 'time-slot--past' : '';
+                                    const title = booked ? 'Already booked' : past ? 'Time has passed' : '';
+                                    return `<div class="time-slot ${cls}"
+                                         onclick="${disabled ? '' : `toggleTimeSlot('${t}',this)`}"
+                                         ${title ? `title="${title}"` : ''}>
                                         ${t}
-                                    </div>`).join('')}
+                                    </div>`;
+                                }).join('')}
                             </div>
                         </div>
                         <div class="form-group">
@@ -4040,10 +4053,15 @@ async function onDateChange(dateVal) {
         }
         document.querySelectorAll('.time-slot').forEach(el => {
             const t = el.textContent.trim();
+            const past = _isSlotPast(t, dateVal);
             if (bookedTimes.has(t)) {
                 el.className = 'time-slot time-slot--booked';
                 el.onclick = null;
                 el.title = 'Already booked';
+            } else if (past) {
+                el.className = 'time-slot time-slot--past';
+                el.onclick = null;
+                el.title = 'Time has passed';
             } else {
                 el.className = 'time-slot';
                 el.onclick = () => toggleTimeSlot(t, el);
@@ -4081,7 +4099,7 @@ function showBookingConfirmModal() {
     }
     const date = document.getElementById('bookingDate')?.value;
     if (!date) { Helpers.showToast('Select Date', 'Please pick a date.', 'error'); return; }
-    const today = new Date().toISOString().split('T')[0];
+    const _n = new Date(); const today = _n.getFullYear() + '-' + String(_n.getMonth() + 1).padStart(2, '0') + '-' + String(_n.getDate()).padStart(2, '0');
     if (date < today) { Helpers.showToast('Invalid Date', 'Cannot book for a past date.', 'error'); return; }
 
     for (let i = 1; i < selectedSlots.length; i++) {
@@ -4264,7 +4282,7 @@ function showRescheduleModal(bookingId, currentDate, currentStart, currentEnd) {
         document.body.appendChild(modal);
     }
 
-    const today = new Date().toISOString().split('T')[0];
+    const _n = new Date(); const today = _n.getFullYear() + '-' + String(_n.getMonth() + 1).padStart(2, '0') + '-' + String(_n.getDate()).padStart(2, '0');
     const timeSlots = [];
     for (let h = 10; h <= 28; h++) timeSlots.push(`${String(h % 24).padStart(2,'0')}:00`);
 
