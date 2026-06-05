@@ -66,7 +66,8 @@ async function renderDashboardPage(app) {
             ${planCTA}
         </div>
     </div>`;
-    const today = new Date().toISOString().split('T')[0];
+    const now = new Date();
+    const today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
     const upcomingBookings = bookings.filter(b => b.status !== 'cancelled' && b.status !== 'completed' && b.booking_date >= today).slice(0, 3);
     const completedChallenges = challenges.filter(c => c.completed).length;
 

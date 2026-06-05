@@ -74,7 +74,17 @@ const Helpers = {
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.style.transition = 'none';
+                el.classList.add('visible');
+                void el.offsetHeight;
+                el.style.transition = '';
+            } else {
+                observer.observe(el);
+            }
+        });
         return observer;
     },
 

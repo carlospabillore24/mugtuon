@@ -155,7 +155,7 @@
                             </div>
                             <div style="padding:var(--space-4);background:var(--color-bg);border-radius:var(--radius-md);border-left:3px solid var(--color-warning)">
                                 <div style="font-size:var(--text-sm);font-weight:var(--weight-semibold);margin-bottom:var(--space-2)">Streak Status</div>
-                                <div style="font-size:var(--text-sm);color:var(--color-text-secondary)">${bestStreak >= 7 ? `Best streak: ${bestStreak} days. Users with 7+ day streaks score 40% higher on focus.` : `Best streak so far: ${bestStreak} days. Aim for 7 consecutive days to unlock Streak Master!`}</div>
+                                <div style="font-size:var(--text-sm);color:var(--color-text-secondary)">${bestStreak >= 7 ? `Best streak: ${bestStreak} ${bestStreak === 1 ? 'day' : 'days'}. Users with 7+ day streaks score 40% higher on focus.` : `Best streak so far: ${bestStreak} ${bestStreak === 1 ? 'day' : 'days'}. Aim for 7 consecutive days to unlock Streak Master!`}</div>
                             </div>
                         </div>
                     </div>

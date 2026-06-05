@@ -1,5 +1,6 @@
 ﻿async function renderProfilePage(app) {
     const user = Store.get('user');
+    if (!user) { Router.navigate('/login'); return; }
     app.innerHTML = renderAppLayout(
         `<div style="padding:var(--space-8);text-align:center;color:var(--color-text-muted)">Loading profile...</div>`,
         'My Profile', 'Manage your account and view your stats'
@@ -8,9 +9,13 @@
     let stats = { total_sessions:0, total_minutes:0, xp: user.xp||0, streak_days: user.streak_days||0, badge_count:0, total_bookings:0 };
     let profile = user;
     try {
-        [profile, stats] = await Promise.all([
-            API.get('/users/profile').catch(() => user),
-            API.get('/users/stats').catch(() => stats),
+        const timeoutMs = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000));
+        [profile, stats] = await Promise.race([
+            Promise.all([
+                API.get('/users/profile').catch(() => user),
+                API.get('/users/stats').catch(() => stats),
+            ]),
+            timeoutMs
         ]);
     } catch(e) {}
 

@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-05 11:42:38 */
+/* MugTuon Bundle — generated 2026-06-05 15:52:24 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -210,7 +210,17 @@ const Helpers = {
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.style.transition = 'none';
+                el.classList.add('visible');
+                void el.offsetHeight;
+                el.style.transition = '';
+            } else {
+                observer.observe(el);
+            }
+        });
         return observer;
     },
 
@@ -3025,7 +3035,8 @@ async function renderDashboardPage(app) {
             ${planCTA}
         </div>
     </div>`;
-    const today = new Date().toISOString().split('T')[0];
+    const now = new Date();
+    const today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
     const upcomingBookings = bookings.filter(b => b.status !== 'cancelled' && b.status !== 'completed' && b.booking_date >= today).slice(0, 3);
     const completedChallenges = challenges.filter(c => c.completed).length;
 
@@ -3248,6 +3259,7 @@ async function renderDashboardPage(app) {
 // ── js/pages/profile.js ──
 ﻿async function renderProfilePage(app) {
     const user = Store.get('user');
+    if (!user) { Router.navigate('/login'); return; }
     app.innerHTML = renderAppLayout(
         `<div style="padding:var(--space-8);text-align:center;color:var(--color-text-muted)">Loading profile...</div>`,
         'My Profile', 'Manage your account and view your stats'
@@ -3256,9 +3268,13 @@ async function renderDashboardPage(app) {
     let stats = { total_sessions:0, total_minutes:0, xp: user.xp||0, streak_days: user.streak_days||0, badge_count:0, total_bookings:0 };
     let profile = user;
     try {
-        [profile, stats] = await Promise.all([
-            API.get('/users/profile').catch(() => user),
-            API.get('/users/stats').catch(() => stats),
+        const timeoutMs = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000));
+        [profile, stats] = await Promise.race([
+            Promise.all([
+                API.get('/users/profile').catch(() => user),
+                API.get('/users/stats').catch(() => stats),
+            ]),
+            timeoutMs
         ]);
     } catch(e) {}
 
@@ -4852,7 +4868,7 @@ function filterAchievements(filter, btn) {
                             </div>
                             <div style="padding:var(--space-4);background:var(--color-bg);border-radius:var(--radius-md);border-left:3px solid var(--color-warning)">
                                 <div style="font-size:var(--text-sm);font-weight:var(--weight-semibold);margin-bottom:var(--space-2)">Streak Status</div>
-                                <div style="font-size:var(--text-sm);color:var(--color-text-secondary)">${bestStreak >= 7 ? `Best streak: ${bestStreak} days. Users with 7+ day streaks score 40% higher on focus.` : `Best streak so far: ${bestStreak} days. Aim for 7 consecutive days to unlock Streak Master!`}</div>
+                                <div style="font-size:var(--text-sm);color:var(--color-text-secondary)">${bestStreak >= 7 ? `Best streak: ${bestStreak} ${bestStreak === 1 ? 'day' : 'days'}. Users with 7+ day streaks score 40% higher on focus.` : `Best streak so far: ${bestStreak} ${bestStreak === 1 ? 'day' : 'days'}. Aim for 7 consecutive days to unlock Streak Master!`}</div>
                             </div>
                         </div>
                     </div>
