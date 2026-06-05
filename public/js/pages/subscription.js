@@ -22,7 +22,9 @@ async function renderSubscriptionPage(app) {
         ? new Date(p.expires_at).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })
         : '';
 
-    const features = Array.isArray(p.features) ? p.features : [];
+    const defaultExplorerFeatures = ['1 booking per day', 'Basic study timer', 'Community leaderboard', 'Access to community areas'];
+    let features = Array.isArray(p.features) ? p.features : [];
+    if (features.length === 0 && (!p.id || p.price === 0)) features = defaultExplorerFeatures;
     const featuresList = features.length > 0
         ? features.map(f => `
             <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) 0">

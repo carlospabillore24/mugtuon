@@ -24,7 +24,9 @@ async function renderDashboardPage(app) {
     } catch(e) { /* use defaults */ }
 
     const level = Helpers.getLevel(stats.xp || 0);
-    const totalHours = Math.floor((stats.total_minutes || 0) / 60);
+    const totalMinutes = Math.round(stats.total_minutes || 0);
+    const totalHours = Math.floor(totalMinutes / 60);
+    const studyDisplay = Helpers.formatDuration(totalMinutes);
 
     // ── Membership card (pre-computed to avoid nested backtick issues) ──────
     const planName  = Helpers.esc(stats.plan_name || 'Explorer');
@@ -101,7 +103,7 @@ async function renderDashboardPage(app) {
                     <span class="dashboard-stat-card__label">Total Study</span>
                     <span class="dashboard-stat-card__icon">⏱</span>
                 </div>
-                <div class="dashboard-stat-card__value">${totalHours}h</div>
+                <div class="dashboard-stat-card__value">${studyDisplay}</div>
                 <div class="dashboard-stat-card__change">${stats.total_sessions || 0} sessions</div>
             </div>
             <div class="dashboard-stat-card">
@@ -202,7 +204,7 @@ async function renderDashboardPage(app) {
                             <div class="progress"><div class="progress__bar" style="width:${Helpers.getLevelProgress(stats.xp || 0)}%"></div></div>
                         </div>
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)">
-                            <div class="stat"><div class="stat__value">${totalHours}</div><div class="stat__label">Hours Studied</div></div>
+                            <div class="stat"><div class="stat__value">${studyDisplay}</div><div class="stat__label">Study Time</div></div>
                             <div class="stat"><div class="stat__value">${stats.streak_days || 0}</div><div class="stat__label">Day Streak</div></div>
                             <div class="stat"><div class="stat__value">${stats.total_sessions || 0}</div><div class="stat__label">Sessions</div></div>
                             <div class="stat"><div class="stat__value">${stats.total_bookings || 0}</div><div class="stat__label">Bookings</div></div>
@@ -219,7 +221,7 @@ async function renderDashboardPage(app) {
                         <div style="display:flex;flex-direction:column;gap:var(--space-4)">
                             <div style="padding:var(--space-3);background:var(--color-bg);border-radius:var(--radius-md)">
                                 <div style="font-size:var(--text-sm);font-weight:var(--weight-medium);margin-bottom:var(--space-1)">🧠 Keep Going!</div>
-                                <div style="font-size:var(--text-xs);color:var(--color-text-secondary)">You've studied ${totalHours} hours total. ${totalHours < 100 ? `${100 - totalHours} more hours to unlock the 100 Hours badge!` : `You've earned the 100 Hours badge!`}</div>
+                                <div style="font-size:var(--text-xs);color:var(--color-text-secondary)">You've studied ${studyDisplay} total. ${totalHours < 100 ? `${100 - totalHours} more hours to unlock the 100 Hours badge!` : `You've earned the 100 Hours badge!`}</div>
                             </div>
                             <div style="padding:var(--space-3);background:var(--color-bg);border-radius:var(--radius-md)">
                                 <div style="font-size:var(--text-sm);font-weight:var(--weight-medium);margin-bottom:var(--space-1)">📈 Streak Tip</div>

@@ -35,7 +35,7 @@ async function loadLeaderboard(period, app) {
                 <div class="card card--elevated" style="text-align:center;padding:var(--space-8);${i===0?'border:2px solid #ffd700':''}">
                     <div style="font-size:${i===0?'40px':'32px'};margin-bottom:var(--space-3)">${['🥇','🥈','🥉'][i]}</div>
                     ${u.avatar_url
-                        ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:0 auto var(--space-3)">`
+                        ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:0 auto var(--space-3)" onerror="this.outerHTML='<div class=\\'avatar avatar--lg\\' style=\\'margin:0 auto var(--space-3)\\'>${Helpers.getInitials(u.first_name, u.last_name)}</div>'">`
                         : `<div class="avatar avatar--lg" style="margin:0 auto var(--space-3)">${Helpers.getInitials(u.first_name, u.last_name)}</div>`}
                     <h3 style="font-size:var(--text-base);margin-bottom:var(--space-1)">${Helpers.esc(u.first_name)} ${Helpers.esc(u.last_name)}</h3>
                     <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-4)">${u.university || '—'}</div>
@@ -58,7 +58,7 @@ async function loadLeaderboard(period, app) {
                         <div class="leaderboard-item ${u.id === currentUser?.id ? 'leaderboard-item--me' : ''}">
                             <div class="leaderboard-item__rank leaderboard-item__rank--${i<3?i+1:''}">${i+1}</div>
                             ${u.avatar_url
-                                ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:32px;height:32px;border-radius:50%;object-fit:cover">`
+                                ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:32px;height:32px;border-radius:50%;object-fit:cover" onerror="this.outerHTML='<div class=\\'avatar avatar--sm\\'>${Helpers.getInitials(u.first_name, u.last_name)}</div>'">`
                                 : `<div class="avatar avatar--sm">${Helpers.getInitials(u.first_name, u.last_name)}</div>`}
                             <div class="leaderboard-item__info">
                                 <div class="leaderboard-item__name">${Helpers.esc(u.first_name)} ${Helpers.esc(u.last_name)}${u.id===currentUser?.id?' <span class="badge badge--accent" style="font-size:10px">You</span>':''}</div>

@@ -18,7 +18,9 @@
     const level = Helpers.getLevel(xp);
     const xpInLevel  = xp % 1000;
     const xpForNext  = 1000;
-    const totalHours = Math.floor((stats.total_minutes||0)/60);
+    const totalMinutes = Math.round(stats.total_minutes||0);
+    const totalHours = Math.floor(totalMinutes/60);
+    const studyDisplay = Helpers.formatDuration(totalMinutes);
     const memberSince = profile.created_at
         ? new Date(profile.created_at).toLocaleDateString('en-PH',{month:'long',year:'numeric'})
         : 'Unknown';
@@ -46,7 +48,7 @@
                 <div class="dashboard-card__body" style="text-align:center">
                     <div style="position:relative;display:inline-block;margin-bottom:var(--space-4);cursor:pointer" onclick="document.getElementById('avatarInput').click()" title="Click to change photo">
                         ${profile.avatar_url
-                            ? `<img src="${profile.avatar_url}" alt="Avatar" style="width:80px;height:80px;border-radius:50%;object-fit:cover">`
+                            ? `<img src="${profile.avatar_url}" alt="Avatar" style="width:80px;height:80px;border-radius:50%;object-fit:cover" onerror="this.outerHTML='<div class=\\'avatar avatar--xl\\'>${Helpers.getInitials(profile.first_name, profile.last_name)}</div>'">`
                             : `<div class="avatar avatar--xl">${Helpers.getInitials(profile.first_name, profile.last_name)}</div>`}
                         <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:var(--color-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;border:2px solid white">📷</div>
                     </div>
@@ -184,7 +186,7 @@
                     </div>
                     <div class="dashboard-card__body">
                         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);text-align:center">
-                            <div class="stat"><div class="stat__value">${totalHours}</div><div class="stat__label">Total Hours</div></div>
+                            <div class="stat"><div class="stat__value">${studyDisplay}</div><div class="stat__label">Study Time</div></div>
                             <div class="stat"><div class="stat__value">${stats.total_sessions||0}</div><div class="stat__label">Sessions</div></div>
                             <div class="stat"><div class="stat__value">${stats.badge_count||0}</div><div class="stat__label">Badges</div></div>
                             <div class="stat"><div class="stat__value">${stats.total_bookings||0}</div><div class="stat__label">Bookings</div></div>

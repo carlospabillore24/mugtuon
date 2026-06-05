@@ -34,7 +34,9 @@
     const monthlyMax  = Math.max(...monthlyBars, 1);
     const monthlyNorm = monthlyBars.map(v => Math.round((v/monthlyMax)*100));
 
-    const totalHours     = Math.floor(parseFloat(summary.total_study_minutes||0)/60);
+    const totalMinutes   = Math.round(parseFloat(summary.total_study_minutes||0));
+    const totalHours     = Math.floor(totalMinutes/60);
+    const studyDisplay   = Helpers.formatDuration(totalMinutes);
     const avgFocus       = Math.round(parseFloat(summary.avg_focus_score||0));
     const bestStreak     = parseInt(summary.best_streak||0);
     const totalXp        = parseInt(summary.total_xp||0);
@@ -59,7 +61,7 @@
                     <span class="dashboard-stat-card__label">This Week</span>
                     <span class="dashboard-stat-card__icon">⏱</span>
                 </div>
-                <div class="dashboard-stat-card__value">${weeklyHours.toFixed(1)}h</div>
+                <div class="dashboard-stat-card__value">${Helpers.formatDuration(Math.round(weeklyMins.reduce((a,b)=>a+b,0)))}</div>
                 <div class="dashboard-stat-card__change">${activeDays} active days total</div>
             </div>
             <div class="dashboard-stat-card">
@@ -75,7 +77,7 @@
                     <span class="dashboard-stat-card__label">Total Study</span>
                     <span class="dashboard-stat-card__icon">📊</span>
                 </div>
-                <div class="dashboard-stat-card__value">${totalHours}h</div>
+                <div class="dashboard-stat-card__value">${studyDisplay}</div>
                 <div class="dashboard-stat-card__change">All time</div>
             </div>
             <div class="dashboard-stat-card">
@@ -84,7 +86,7 @@
                     <span class="dashboard-stat-card__icon">⭐</span>
                 </div>
                 <div class="dashboard-stat-card__value">${bestDay}</div>
-                <div class="dashboard-stat-card__change">${weeklyMins[bestDayIdx]>0?Math.round(weeklyMins[bestDayIdx]/60*10)/10+'h':'No data'}</div>
+                <div class="dashboard-stat-card__change">${weeklyMins[bestDayIdx]>0?Helpers.formatDuration(Math.round(weeklyMins[bestDayIdx])):'No data'}</div>
             </div>
         </div>
 
@@ -179,7 +181,7 @@
                     </div>
                     <div class="dashboard-card__body">
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
-                            <div class="stat"><div class="stat__value">${totalHours}h</div><div class="stat__label">Total Study</div></div>
+                            <div class="stat"><div class="stat__value">${studyDisplay}</div><div class="stat__label">Total Study</div></div>
                             <div class="stat"><div class="stat__value">${activeDays}</div><div class="stat__label">Active Days</div></div>
                             <div class="stat"><div class="stat__value">${avgFocus}</div><div class="stat__label">Avg Focus</div></div>
                             <div class="stat"><div class="stat__value">${totalXp.toLocaleString()}</div><div class="stat__label">XP Earned</div></div>

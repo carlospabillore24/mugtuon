@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-04 13:35:55 */
+/* MugTuon Bundle — generated 2026-06-05 06:01:13 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -2974,7 +2974,9 @@ async function renderDashboardPage(app) {
     } catch(e) { /* use defaults */ }
 
     const level = Helpers.getLevel(stats.xp || 0);
-    const totalHours = Math.floor((stats.total_minutes || 0) / 60);
+    const totalMinutes = Math.round(stats.total_minutes || 0);
+    const totalHours = Math.floor(totalMinutes / 60);
+    const studyDisplay = Helpers.formatDuration(totalMinutes);
 
     // ── Membership card (pre-computed to avoid nested backtick issues) ──────
     const planName  = Helpers.esc(stats.plan_name || 'Explorer');
@@ -3051,7 +3053,7 @@ async function renderDashboardPage(app) {
                     <span class="dashboard-stat-card__label">Total Study</span>
                     <span class="dashboard-stat-card__icon">⏱</span>
                 </div>
-                <div class="dashboard-stat-card__value">${totalHours}h</div>
+                <div class="dashboard-stat-card__value">${studyDisplay}</div>
                 <div class="dashboard-stat-card__change">${stats.total_sessions || 0} sessions</div>
             </div>
             <div class="dashboard-stat-card">
@@ -3152,7 +3154,7 @@ async function renderDashboardPage(app) {
                             <div class="progress"><div class="progress__bar" style="width:${Helpers.getLevelProgress(stats.xp || 0)}%"></div></div>
                         </div>
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)">
-                            <div class="stat"><div class="stat__value">${totalHours}</div><div class="stat__label">Hours Studied</div></div>
+                            <div class="stat"><div class="stat__value">${studyDisplay}</div><div class="stat__label">Study Time</div></div>
                             <div class="stat"><div class="stat__value">${stats.streak_days || 0}</div><div class="stat__label">Day Streak</div></div>
                             <div class="stat"><div class="stat__value">${stats.total_sessions || 0}</div><div class="stat__label">Sessions</div></div>
                             <div class="stat"><div class="stat__value">${stats.total_bookings || 0}</div><div class="stat__label">Bookings</div></div>
@@ -3169,7 +3171,7 @@ async function renderDashboardPage(app) {
                         <div style="display:flex;flex-direction:column;gap:var(--space-4)">
                             <div style="padding:var(--space-3);background:var(--color-bg);border-radius:var(--radius-md)">
                                 <div style="font-size:var(--text-sm);font-weight:var(--weight-medium);margin-bottom:var(--space-1)">🧠 Keep Going!</div>
-                                <div style="font-size:var(--text-xs);color:var(--color-text-secondary)">You've studied ${totalHours} hours total. ${totalHours < 100 ? `${100 - totalHours} more hours to unlock the 100 Hours badge!` : `You've earned the 100 Hours badge!`}</div>
+                                <div style="font-size:var(--text-xs);color:var(--color-text-secondary)">You've studied ${studyDisplay} total. ${totalHours < 100 ? `${100 - totalHours} more hours to unlock the 100 Hours badge!` : `You've earned the 100 Hours badge!`}</div>
                             </div>
                             <div style="padding:var(--space-3);background:var(--color-bg);border-radius:var(--radius-md)">
                                 <div style="font-size:var(--text-sm);font-weight:var(--weight-medium);margin-bottom:var(--space-1)">📈 Streak Tip</div>
@@ -3254,7 +3256,9 @@ async function renderDashboardPage(app) {
     const level = Helpers.getLevel(xp);
     const xpInLevel  = xp % 1000;
     const xpForNext  = 1000;
-    const totalHours = Math.floor((stats.total_minutes||0)/60);
+    const totalMinutes = Math.round(stats.total_minutes||0);
+    const totalHours = Math.floor(totalMinutes/60);
+    const studyDisplay = Helpers.formatDuration(totalMinutes);
     const memberSince = profile.created_at
         ? new Date(profile.created_at).toLocaleDateString('en-PH',{month:'long',year:'numeric'})
         : 'Unknown';
@@ -3282,7 +3286,7 @@ async function renderDashboardPage(app) {
                 <div class="dashboard-card__body" style="text-align:center">
                     <div style="position:relative;display:inline-block;margin-bottom:var(--space-4);cursor:pointer" onclick="document.getElementById('avatarInput').click()" title="Click to change photo">
                         ${profile.avatar_url
-                            ? `<img src="${profile.avatar_url}" alt="Avatar" style="width:80px;height:80px;border-radius:50%;object-fit:cover">`
+                            ? `<img src="${profile.avatar_url}" alt="Avatar" style="width:80px;height:80px;border-radius:50%;object-fit:cover" onerror="this.outerHTML='<div class=\\'avatar avatar--xl\\'>${Helpers.getInitials(profile.first_name, profile.last_name)}</div>'">`
                             : `<div class="avatar avatar--xl">${Helpers.getInitials(profile.first_name, profile.last_name)}</div>`}
                         <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:var(--color-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;border:2px solid white">📷</div>
                     </div>
@@ -3420,7 +3424,7 @@ async function renderDashboardPage(app) {
                     </div>
                     <div class="dashboard-card__body">
                         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);text-align:center">
-                            <div class="stat"><div class="stat__value">${totalHours}</div><div class="stat__label">Total Hours</div></div>
+                            <div class="stat"><div class="stat__value">${studyDisplay}</div><div class="stat__label">Study Time</div></div>
                             <div class="stat"><div class="stat__value">${stats.total_sessions||0}</div><div class="stat__label">Sessions</div></div>
                             <div class="stat"><div class="stat__value">${stats.badge_count||0}</div><div class="stat__label">Badges</div></div>
                             <div class="stat"><div class="stat__value">${stats.total_bookings||0}</div><div class="stat__label">Bookings</div></div>
@@ -3606,7 +3610,9 @@ async function renderSubscriptionPage(app) {
         ? new Date(p.expires_at).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })
         : '';
 
-    const features = Array.isArray(p.features) ? p.features : [];
+    const defaultExplorerFeatures = ['1 booking per day', 'Basic study timer', 'Community leaderboard', 'Access to community areas'];
+    let features = Array.isArray(p.features) ? p.features : [];
+    if (features.length === 0 && (!p.id || p.price === 0)) features = defaultExplorerFeatures;
     const featuresList = features.length > 0
         ? features.map(f => `
             <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) 0">
@@ -4450,7 +4456,7 @@ async function loadLeaderboard(period, app) {
                 <div class="card card--elevated" style="text-align:center;padding:var(--space-8);${i===0?'border:2px solid #ffd700':''}">
                     <div style="font-size:${i===0?'40px':'32px'};margin-bottom:var(--space-3)">${['🥇','🥈','🥉'][i]}</div>
                     ${u.avatar_url
-                        ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:0 auto var(--space-3)">`
+                        ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:0 auto var(--space-3)" onerror="this.outerHTML='<div class=\\'avatar avatar--lg\\' style=\\'margin:0 auto var(--space-3)\\'>${Helpers.getInitials(u.first_name, u.last_name)}</div>'">`
                         : `<div class="avatar avatar--lg" style="margin:0 auto var(--space-3)">${Helpers.getInitials(u.first_name, u.last_name)}</div>`}
                     <h3 style="font-size:var(--text-base);margin-bottom:var(--space-1)">${Helpers.esc(u.first_name)} ${Helpers.esc(u.last_name)}</h3>
                     <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-4)">${u.university || '—'}</div>
@@ -4473,7 +4479,7 @@ async function loadLeaderboard(period, app) {
                         <div class="leaderboard-item ${u.id === currentUser?.id ? 'leaderboard-item--me' : ''}">
                             <div class="leaderboard-item__rank leaderboard-item__rank--${i<3?i+1:''}">${i+1}</div>
                             ${u.avatar_url
-                                ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:32px;height:32px;border-radius:50%;object-fit:cover">`
+                                ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:32px;height:32px;border-radius:50%;object-fit:cover" onerror="this.outerHTML='<div class=\\'avatar avatar--sm\\'>${Helpers.getInitials(u.first_name, u.last_name)}</div>'">`
                                 : `<div class="avatar avatar--sm">${Helpers.getInitials(u.first_name, u.last_name)}</div>`}
                             <div class="leaderboard-item__info">
                                 <div class="leaderboard-item__name">${Helpers.esc(u.first_name)} ${Helpers.esc(u.last_name)}${u.id===currentUser?.id?' <span class="badge badge--accent" style="font-size:10px">You</span>':''}</div>
@@ -4714,7 +4720,9 @@ function filterAchievements(filter, btn) {
     const monthlyMax  = Math.max(...monthlyBars, 1);
     const monthlyNorm = monthlyBars.map(v => Math.round((v/monthlyMax)*100));
 
-    const totalHours     = Math.floor(parseFloat(summary.total_study_minutes||0)/60);
+    const totalMinutes   = Math.round(parseFloat(summary.total_study_minutes||0));
+    const totalHours     = Math.floor(totalMinutes/60);
+    const studyDisplay   = Helpers.formatDuration(totalMinutes);
     const avgFocus       = Math.round(parseFloat(summary.avg_focus_score||0));
     const bestStreak     = parseInt(summary.best_streak||0);
     const totalXp        = parseInt(summary.total_xp||0);
@@ -4739,7 +4747,7 @@ function filterAchievements(filter, btn) {
                     <span class="dashboard-stat-card__label">This Week</span>
                     <span class="dashboard-stat-card__icon">⏱</span>
                 </div>
-                <div class="dashboard-stat-card__value">${weeklyHours.toFixed(1)}h</div>
+                <div class="dashboard-stat-card__value">${Helpers.formatDuration(Math.round(weeklyMins.reduce((a,b)=>a+b,0)))}</div>
                 <div class="dashboard-stat-card__change">${activeDays} active days total</div>
             </div>
             <div class="dashboard-stat-card">
@@ -4755,7 +4763,7 @@ function filterAchievements(filter, btn) {
                     <span class="dashboard-stat-card__label">Total Study</span>
                     <span class="dashboard-stat-card__icon">📊</span>
                 </div>
-                <div class="dashboard-stat-card__value">${totalHours}h</div>
+                <div class="dashboard-stat-card__value">${studyDisplay}</div>
                 <div class="dashboard-stat-card__change">All time</div>
             </div>
             <div class="dashboard-stat-card">
@@ -4764,7 +4772,7 @@ function filterAchievements(filter, btn) {
                     <span class="dashboard-stat-card__icon">⭐</span>
                 </div>
                 <div class="dashboard-stat-card__value">${bestDay}</div>
-                <div class="dashboard-stat-card__change">${weeklyMins[bestDayIdx]>0?Math.round(weeklyMins[bestDayIdx]/60*10)/10+'h':'No data'}</div>
+                <div class="dashboard-stat-card__change">${weeklyMins[bestDayIdx]>0?Helpers.formatDuration(Math.round(weeklyMins[bestDayIdx])):'No data'}</div>
             </div>
         </div>
 
@@ -4859,7 +4867,7 @@ function filterAchievements(filter, btn) {
                     </div>
                     <div class="dashboard-card__body">
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
-                            <div class="stat"><div class="stat__value">${totalHours}h</div><div class="stat__label">Total Study</div></div>
+                            <div class="stat"><div class="stat__value">${studyDisplay}</div><div class="stat__label">Total Study</div></div>
                             <div class="stat"><div class="stat__value">${activeDays}</div><div class="stat__label">Active Days</div></div>
                             <div class="stat"><div class="stat__value">${avgFocus}</div><div class="stat__label">Avg Focus</div></div>
                             <div class="stat"><div class="stat__value">${totalXp.toLocaleString()}</div><div class="stat__label">XP Earned</div></div>
