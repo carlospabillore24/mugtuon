@@ -90,24 +90,27 @@ function route_users(string $method, array $seg): void {
             json_response(['success' => true]);
             break;
 
-        // ── PUT /api/users/avatar ──────────────────────────────────────────
-        case 'PUT:avatar':
+        // ── POST /api/users/avatar ─────────────────────────────────────────
+        case 'POST:avatar':
             $user = authenticate();
-            $body = get_json_body();
-            $avatar = $body['avatar'] ?? '';
-            if (!$avatar) json_error('Avatar image is required');
-
-            $avatarUrl = $avatar;
-            if (preg_match('/^data:image\/(png|jpe?g|webp|gif);base64,/', $avatar, $m)) {
-                $ext = $m[1] === 'jpeg' ? 'jpg' : $m[1];
-                $decoded = base64_decode(preg_replace('/^data:image\/[^;]+;base64,/', '', $avatar));
-                if (!$decoded || strlen($decoded) > 2 * 1024 * 1024) json_error('Image too large (max 2MB)');
-                $filename = $user['id'] . '_' . time() . '.' . $ext;
-                $uploadDir = __DIR__ . '/../../public/uploads/avatars/';
-                if (!is_dir($uploadDir)) @mkdir($uploadDir, 0755, true);
-                file_put_contents($uploadDir . $filename, $decoded);
-                $avatarUrl = 'uploads/avatars/' . $filename;
+            if (empty($_FILES['avatar']) || $_FILES['avatar']['error'] !== UPLOAD_ERR_OK) {
+                json_error('Avatar image is required');
             }
+            $file = $_FILES['avatar'];
+            if ($file['size'] > 2 * 1024 * 1024) json_error('Image too large (max 2MB)');
+
+            $allowed = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
+            $mime = mime_content_type($file['tmp_name']);
+            if (!isset($allowed[$mime])) json_error('Only JPEG, PNG, WebP, and GIF images are allowed');
+
+            $ext = $allowed[$mime];
+            $filename = $user['id'] . '_' . time() . '.' . $ext;
+            $uploadDir = __DIR__ . '/../../public/uploads/avatars/';
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+            if (!move_uploaded_file($file['tmp_name'], $uploadDir . $filename)) {
+                json_error('Failed to save avatar');
+            }
+            $avatarUrl = 'uploads/avatars/' . $filename;
 
             $stmt = db()->prepare('UPDATE users SET avatar_url = ?, updated_at = NOW() WHERE id = ?');
             $stmt->execute([$avatarUrl, $user['id']]);

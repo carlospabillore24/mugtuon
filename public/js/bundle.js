@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-05 06:01:13 */
+/* MugTuon Bundle — generated 2026-06-05 07:16:16 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -3466,13 +3466,15 @@ async function handleAvatarUpload(input) {
         return;
     }
     try {
-        const base64 = await new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
-            reader.onerror = () => reject(new Error('Failed to read image'));
-            reader.readAsDataURL(file);
+        const formData = new FormData();
+        formData.append('avatar', file);
+        const res = await fetch(API.base + '/users/avatar', {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: formData
         });
-        await API.put('/users/avatar', { avatar: base64 });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Upload failed');
         Helpers.showToast('Avatar Updated', 'Your profile photo has been changed.', 'success');
         Router.navigate('/profile');
     } catch (err) {
