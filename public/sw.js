@@ -1,4 +1,4 @@
-const CACHE_VERSION = '2026-06-04-prod';
+const CACHE_VERSION = '2026-06-05-avatar-fix';
 const CACHE_NAME = 'mugtuon-v' + CACHE_VERSION;
 const STATIC_ASSETS = [
   '/',
