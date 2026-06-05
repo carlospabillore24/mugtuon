@@ -190,6 +190,14 @@ const Helpers = {
         });
     },
 
+    renderAvatar(url, firstName, lastName, size = 'sm') {
+        const initials = Helpers.getInitials(firstName, lastName);
+        const sizeMap = { sm: 32, md: 48, lg: 56, xl: 80 };
+        const px = sizeMap[size] || 32;
+        if (!url) return `<div class="avatar avatar--${size}">${initials}</div>`;
+        return `<img src="${Helpers.esc(url)}" alt="Avatar" style="width:${px}px;height:${px}px;border-radius:50%;object-fit:cover" onerror="this.outerHTML=this.getAttribute('data-fallback')" data-fallback="<div class='avatar avatar--${size}'>${initials}</div>">`;
+    },
+
     renderBarChart(bars, labels, options = {}) {
         const color = options.color || 'var(--color-accent)';
         const height = options.height || '240px';

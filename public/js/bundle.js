@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-05 07:29:50 */
+/* MugTuon Bundle — generated 2026-06-05 08:03:37 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -324,6 +324,14 @@ const Helpers = {
             document.body.appendChild(overlay);
             overlay.querySelector('[data-action="confirm"]').focus();
         });
+    },
+
+    renderAvatar(url, firstName, lastName, size = 'sm') {
+        const initials = Helpers.getInitials(firstName, lastName);
+        const sizeMap = { sm: 32, md: 48, lg: 56, xl: 80 };
+        const px = sizeMap[size] || 32;
+        if (!url) return `<div class="avatar avatar--${size}">${initials}</div>`;
+        return `<img src="${Helpers.esc(url)}" alt="Avatar" style="width:${px}px;height:${px}px;border-radius:50%;object-fit:cover" onerror="this.outerHTML=this.getAttribute('data-fallback')" data-fallback="<div class='avatar avatar--${size}'>${initials}</div>">`;
     },
 
     renderBarChart(bars, labels, options = {}) {
@@ -668,9 +676,7 @@ function renderSidebar() {
 
         <div class="sidebar__footer">
             <div class="sidebar__user" onclick="Router.navigate('/profile')">
-                ${user.avatar_url
-                ? `<img src="${user.avatar_url}" alt="Avatar" style="width:32px;height:32px;border-radius:50%;object-fit:cover">`
-                : `<div class="avatar avatar--sm">${Helpers.getInitials(user.first_name, user.last_name)}</div>`}
+                ${Helpers.renderAvatar(user.avatar_url, user.first_name, user.last_name, 'sm')}
                 <div class="sidebar__user-info">
                     <div class="sidebar__user-name">${user.first_name} ${user.last_name}</div>
                     <div class="sidebar__user-role">${user.role}</div>
@@ -3285,9 +3291,7 @@ async function renderDashboardPage(app) {
             <div class="dashboard-card">
                 <div class="dashboard-card__body" style="text-align:center">
                     <div style="position:relative;display:inline-block;margin-bottom:var(--space-4);cursor:pointer" onclick="document.getElementById('avatarInput').click()" title="Click to change photo">
-                        ${profile.avatar_url
-                            ? `<img src="${profile.avatar_url}" alt="Avatar" style="width:80px;height:80px;border-radius:50%;object-fit:cover" onerror="this.outerHTML='<div class=\\'avatar avatar--xl\\'>${Helpers.getInitials(profile.first_name, profile.last_name)}</div>'">`
-                            : `<div class="avatar avatar--xl">${Helpers.getInitials(profile.first_name, profile.last_name)}</div>`}
+                        ${Helpers.renderAvatar(profile.avatar_url, profile.first_name, profile.last_name, 'xl')}
                         <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:var(--color-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;border:2px solid white">📷</div>
                     </div>
                     <input type="file" id="avatarInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleAvatarUpload(this)">
@@ -3475,6 +3479,11 @@ async function handleAvatarUpload(input) {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Upload failed');
+        const user = Store.get('user');
+        if (user && data.avatar_url) {
+            user.avatar_url = data.avatar_url;
+            Store.login(user);
+        }
         Helpers.showToast('Avatar Updated', 'Your profile photo has been changed.', 'success');
         Router.navigate('/profile');
     } catch (err) {
@@ -4457,9 +4466,7 @@ async function loadLeaderboard(period, app) {
             ${topThree.map((u, i) => `
                 <div class="card card--elevated" style="text-align:center;padding:var(--space-8);${i===0?'border:2px solid #ffd700':''}">
                     <div style="font-size:${i===0?'40px':'32px'};margin-bottom:var(--space-3)">${['🥇','🥈','🥉'][i]}</div>
-                    ${u.avatar_url
-                        ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:0 auto var(--space-3)" onerror="this.outerHTML='<div class=\\'avatar avatar--lg\\' style=\\'margin:0 auto var(--space-3)\\'>${Helpers.getInitials(u.first_name, u.last_name)}</div>'">`
-                        : `<div class="avatar avatar--lg" style="margin:0 auto var(--space-3)">${Helpers.getInitials(u.first_name, u.last_name)}</div>`}
+                    <div style="margin:0 auto var(--space-3)">${Helpers.renderAvatar(u.avatar_url, u.first_name, u.last_name, 'lg')}</div>
                     <h3 style="font-size:var(--text-base);margin-bottom:var(--space-1)">${Helpers.esc(u.first_name)} ${Helpers.esc(u.last_name)}</h3>
                     <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-4)">${u.university || '—'}</div>
                     <div style="font-size:var(--text-2xl);font-weight:var(--weight-bold);color:var(--color-accent);margin-bottom:var(--space-2)">${(u.xp||0).toLocaleString()} XP</div>
@@ -4480,9 +4487,7 @@ async function loadLeaderboard(period, app) {
                     ${data.map((u, i) => `
                         <div class="leaderboard-item ${u.id === currentUser?.id ? 'leaderboard-item--me' : ''}">
                             <div class="leaderboard-item__rank leaderboard-item__rank--${i<3?i+1:''}">${i+1}</div>
-                            ${u.avatar_url
-                                ? `<img src="${u.avatar_url}" alt="${Helpers.esc(u.first_name)}" style="width:32px;height:32px;border-radius:50%;object-fit:cover" onerror="this.outerHTML='<div class=\\'avatar avatar--sm\\'>${Helpers.getInitials(u.first_name, u.last_name)}</div>'">`
-                                : `<div class="avatar avatar--sm">${Helpers.getInitials(u.first_name, u.last_name)}</div>`}
+                            ${Helpers.renderAvatar(u.avatar_url, u.first_name, u.last_name, 'sm')}
                             <div class="leaderboard-item__info">
                                 <div class="leaderboard-item__name">${Helpers.esc(u.first_name)} ${Helpers.esc(u.last_name)}${u.id===currentUser?.id?' <span class="badge badge--accent" style="font-size:10px">You</span>':''}</div>
                                 <div class="leaderboard-item__meta">${u.university||'—'} &middot; ${Math.floor((u.total_minutes||0)/60)}h &middot; 🔥 ${u.streak_days||0}d</div>

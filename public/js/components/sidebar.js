@@ -59,9 +59,7 @@ function renderSidebar() {
 
         <div class="sidebar__footer">
             <div class="sidebar__user" onclick="Router.navigate('/profile')">
-                ${user.avatar_url
-                ? `<img src="${user.avatar_url}" alt="Avatar" style="width:32px;height:32px;border-radius:50%;object-fit:cover">`
-                : `<div class="avatar avatar--sm">${Helpers.getInitials(user.first_name, user.last_name)}</div>`}
+                ${Helpers.renderAvatar(user.avatar_url, user.first_name, user.last_name, 'sm')}
                 <div class="sidebar__user-info">
                     <div class="sidebar__user-name">${user.first_name} ${user.last_name}</div>
                     <div class="sidebar__user-role">${user.role}</div>

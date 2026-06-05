@@ -47,9 +47,7 @@
             <div class="dashboard-card">
                 <div class="dashboard-card__body" style="text-align:center">
                     <div style="position:relative;display:inline-block;margin-bottom:var(--space-4);cursor:pointer" onclick="document.getElementById('avatarInput').click()" title="Click to change photo">
-                        ${profile.avatar_url
-                            ? `<img src="${profile.avatar_url}" alt="Avatar" style="width:80px;height:80px;border-radius:50%;object-fit:cover" onerror="this.outerHTML='<div class=\\'avatar avatar--xl\\'>${Helpers.getInitials(profile.first_name, profile.last_name)}</div>'">`
-                            : `<div class="avatar avatar--xl">${Helpers.getInitials(profile.first_name, profile.last_name)}</div>`}
+                        ${Helpers.renderAvatar(profile.avatar_url, profile.first_name, profile.last_name, 'xl')}
                         <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:var(--color-accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;border:2px solid white">📷</div>
                     </div>
                     <input type="file" id="avatarInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleAvatarUpload(this)">
@@ -237,6 +235,11 @@ async function handleAvatarUpload(input) {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Upload failed');
+        const user = Store.get('user');
+        if (user && data.avatar_url) {
+            user.avatar_url = data.avatar_url;
+            Store.login(user);
+        }
         Helpers.showToast('Avatar Updated', 'Your profile photo has been changed.', 'success');
         Router.navigate('/profile');
     } catch (err) {
