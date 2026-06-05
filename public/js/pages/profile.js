@@ -70,7 +70,7 @@
                         </div>
                         <div>
                             <div style="font-size:var(--text-xs);color:var(--color-text-muted)">Study Streak</div>
-                            <div style="font-weight:var(--weight-medium);font-size:var(--text-sm)">🔥 ${profile.streak_days||stats.streak_days||0} days</div>
+                            <div style="font-weight:var(--weight-medium);font-size:var(--text-sm)">🔥 ${profile.streak_days||stats.streak_days||0} ${(profile.streak_days||stats.streak_days||0) === 1 ? 'day' : 'days'}</div>
                         </div>
                         ${profile.university ? `<div>
                             <div style="font-size:var(--text-xs);color:var(--color-text-muted)">University</div>

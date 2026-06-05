@@ -49,15 +49,18 @@ const Helpers = {
     showToast(title, message, type = 'info') {
         const container = document.getElementById('toasts');
         const toast = document.createElement('div');
-        toast.className = `toast toast--${type}`;
+        toast.className = `toast toast--${type} toast--entering`;
         toast.innerHTML = `
             <div class="toast__title">${Helpers.esc(title)}</div>
             <div class="toast__message">${Helpers.esc(message)}</div>
         `;
         container.appendChild(toast);
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => { toast.classList.remove('toast--entering'); });
+        });
         setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateX(100%)';
+            toast.classList.add('toast--exiting');
+            toast.addEventListener('transitionend', () => toast.remove(), { once: true });
             setTimeout(() => toast.remove(), 300);
         }, 4000);
     },

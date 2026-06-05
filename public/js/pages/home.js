@@ -366,7 +366,7 @@ function renderHomePage(app) {
             if (activeEl) {
                 const count = c.activeNow || 0;
                 activeEl.textContent = count > 0
-                    ? count + ' people studying right now, together'
+                    ? count + (count === 1 ? ' person' : ' people') + ' studying right now, together'
                     : 'Study smarter, together';
             }
 

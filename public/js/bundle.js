@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-05 08:03:37 */
+/* MugTuon Bundle — generated 2026-06-05 11:42:38 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -185,15 +185,18 @@ const Helpers = {
     showToast(title, message, type = 'info') {
         const container = document.getElementById('toasts');
         const toast = document.createElement('div');
-        toast.className = `toast toast--${type}`;
+        toast.className = `toast toast--${type} toast--entering`;
         toast.innerHTML = `
             <div class="toast__title">${Helpers.esc(title)}</div>
             <div class="toast__message">${Helpers.esc(message)}</div>
         `;
         container.appendChild(toast);
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => { toast.classList.remove('toast--entering'); });
+        });
         setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateX(100%)';
+            toast.classList.add('toast--exiting');
+            toast.addEventListener('transitionend', () => toast.remove(), { once: true });
             setTimeout(() => toast.remove(), 300);
         }, 4000);
     },
@@ -1499,7 +1502,7 @@ function renderHomePage(app) {
             if (activeEl) {
                 const count = c.activeNow || 0;
                 activeEl.textContent = count > 0
-                    ? count + ' people studying right now, together'
+                    ? count + (count === 1 ? ' person' : ' people') + ' studying right now, together'
                     : 'Study smarter, together';
             }
 
@@ -3022,7 +3025,8 @@ async function renderDashboardPage(app) {
             ${planCTA}
         </div>
     </div>`;
-    const upcomingBookings = bookings.filter(b => b.status !== 'cancelled' && b.status !== 'completed').slice(0, 3);
+    const today = new Date().toISOString().split('T')[0];
+    const upcomingBookings = bookings.filter(b => b.status !== 'cancelled' && b.status !== 'completed' && b.booking_date >= today).slice(0, 3);
     const completedChallenges = challenges.filter(c => c.completed).length;
 
     // Build weekly chart from API data
@@ -3051,7 +3055,7 @@ async function renderDashboardPage(app) {
                     <span class="dashboard-stat-card__label">Study Streak</span>
                     <span class="dashboard-stat-card__icon">🔥</span>
                 </div>
-                <div class="dashboard-stat-card__value">${stats.streak_days || 0} days</div>
+                <div class="dashboard-stat-card__value">${stats.streak_days || 0} ${(stats.streak_days || 0) === 1 ? 'day' : 'days'}</div>
                 <div class="dashboard-stat-card__change">Keep it up!</div>
             </div>
             <div class="dashboard-stat-card">
@@ -3314,7 +3318,7 @@ async function renderDashboardPage(app) {
                         </div>
                         <div>
                             <div style="font-size:var(--text-xs);color:var(--color-text-muted)">Study Streak</div>
-                            <div style="font-weight:var(--weight-medium);font-size:var(--text-sm)">🔥 ${profile.streak_days||stats.streak_days||0} days</div>
+                            <div style="font-weight:var(--weight-medium);font-size:var(--text-sm)">🔥 ${profile.streak_days||stats.streak_days||0} ${(profile.streak_days||stats.streak_days||0) === 1 ? 'day' : 'days'}</div>
                         </div>
                         ${profile.university ? `<div>
                             <div style="font-size:var(--text-xs);color:var(--color-text-muted)">University</div>

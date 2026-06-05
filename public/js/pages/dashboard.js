@@ -66,7 +66,8 @@ async function renderDashboardPage(app) {
             ${planCTA}
         </div>
     </div>`;
-    const upcomingBookings = bookings.filter(b => b.status !== 'cancelled' && b.status !== 'completed').slice(0, 3);
+    const today = new Date().toISOString().split('T')[0];
+    const upcomingBookings = bookings.filter(b => b.status !== 'cancelled' && b.status !== 'completed' && b.booking_date >= today).slice(0, 3);
     const completedChallenges = challenges.filter(c => c.completed).length;
 
     // Build weekly chart from API data
@@ -95,7 +96,7 @@ async function renderDashboardPage(app) {
                     <span class="dashboard-stat-card__label">Study Streak</span>
                     <span class="dashboard-stat-card__icon">🔥</span>
                 </div>
-                <div class="dashboard-stat-card__value">${stats.streak_days || 0} days</div>
+                <div class="dashboard-stat-card__value">${stats.streak_days || 0} ${(stats.streak_days || 0) === 1 ? 'day' : 'days'}</div>
                 <div class="dashboard-stat-card__change">Keep it up!</div>
             </div>
             <div class="dashboard-stat-card">
