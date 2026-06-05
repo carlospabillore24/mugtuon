@@ -105,10 +105,17 @@ function route_users(string $method, array $seg): void {
 
             $ext = $allowed[$mime];
             $filename = $user['id'] . '_' . time() . '.' . $ext;
-            $uploadDir = __DIR__ . '/../../public/uploads/avatars/';
-            if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
-            if (!move_uploaded_file($file['tmp_name'], $uploadDir . $filename)) {
-                json_error('Failed to save avatar');
+            $uploadDir = realpath(__DIR__ . '/../../public/uploads/avatars');
+            if (!$uploadDir) {
+                $uploadDir = __DIR__ . '/../../public/uploads/avatars';
+                mkdir($uploadDir, 0755, true);
+                $uploadDir = realpath($uploadDir);
+            }
+            $target = $uploadDir . '/' . $filename;
+            if (!move_uploaded_file($file['tmp_name'], $target)) {
+                if (!copy($file['tmp_name'], $target)) {
+                    json_error('Failed to save avatar: check folder permissions on uploads/avatars');
+                }
             }
             $avatarUrl = 'uploads/avatars/' . $filename;
 
