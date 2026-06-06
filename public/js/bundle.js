@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-06 13:19:34 */
+/* MugTuon Bundle — generated 2026-06-06 13:22:38 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -1150,8 +1150,10 @@ function renderHomePage(app) {
     app.innerHTML = `
     ${renderHeader()}
 
-    <section class="hero" style="background:linear-gradient(rgba(250,250,249,0.85),rgba(250,250,249,0.92)),url('images/hero-cafe.jpg') center/cover no-repeat">
-        <div class="container">
+    <section class="hero" style="position:relative">
+        <img src="images/hero-cafe.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(235,227,223,0.88) 0%,rgba(250,250,249,0.94) 100%);z-index:1"></div>
+        <div class="container" style="position:relative;z-index:2">
             <div class="hero__inner">
                 <div class="hero__content">
                     <div class="hero__eyebrow" id="hero-active-now">
