@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-06 13:12:48 */
+/* MugTuon Bundle — generated 2026-06-06 13:19:34 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -1150,7 +1150,7 @@ function renderHomePage(app) {
     app.innerHTML = `
     ${renderHeader()}
 
-    <section class="hero">
+    <section class="hero" style="background:linear-gradient(rgba(250,250,249,0.85),rgba(250,250,249,0.92)),url('images/hero-cafe.jpg') center/cover no-repeat">
         <div class="container">
             <div class="hero__inner">
                 <div class="hero__content">
