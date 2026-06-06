@@ -11,6 +11,7 @@ $path = '/' . trim($path, '/');
 
 $routes = [
     '/'             => ['title' => 'MugTuon Learning Hub & Cafe', 'desc' => 'Your premium study hub, coworking space, and productivity ecosystem. Book spaces, track focus, climb leaderboards.'],
+    '/spaces'       => ['title' => 'Study Spaces | MugTuon', 'desc' => 'Browse and book study desks, private rooms, meeting spaces, and event areas at MugTuon Learning Hub & Cafe.'],
     '/about'        => ['title' => 'About | MugTuon', 'desc' => 'Learn about MugTuon Learning Hub & Cafe — where coffee meets productivity. Our mission, values, and community.'],
     '/pricing'      => ['title' => 'Pricing | MugTuon', 'desc' => 'Affordable study space plans. Explorer (Free), Scholar, and Pro memberships with booking, analytics, and focus tools.'],
     '/contact'      => ['title' => 'Contact | MugTuon', 'desc' => 'Get in touch with MugTuon Learning Hub & Cafe. Visit us in Cagayan de Oro City or send us a message.'],

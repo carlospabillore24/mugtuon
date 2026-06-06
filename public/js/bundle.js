@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-06 13:38:25 */
+/* MugTuon Bundle — generated 2026-06-06 13:46:16 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -1621,7 +1621,7 @@ function renderSpacesPage(app) {
         <div class="container">
             <h2 class="cta-section__title reveal">Ready to study?</h2>
             <p class="cta-section__desc reveal">Book your space now and start your productive session.</p>
-            <a href="${Store.isLoggedIn() ? '/bookings' : '/register'}" data-link class="btn btn--primary btn--lg reveal">${Store.isLoggedIn() ? 'Book Now' : 'Get Started Free'}</a>
+            <a href="${Store.isLoggedIn ? '/bookings' : '/register'}" data-link class="btn btn--primary btn--lg reveal">${Store.isLoggedIn ? 'Book Now' : 'Get Started Free'}</a>
         </div>
     </section>
 
@@ -1703,7 +1703,7 @@ function _filterPublicSpaces(type, btn) {
 }
 
 function _bookSpaceAction(spaceId) {
-    if (Store.isLoggedIn()) {
+    if (Store.isLoggedIn) {
         Router.navigate('/bookings');
     } else {
         // Show sign-in prompt modal
