@@ -17,6 +17,7 @@ function renderHeader(isPublic = true) {
 
             <nav class="header__nav" aria-label="Site navigation">
                 ${link('/', 'Home')}
+                ${link('/spaces', 'Spaces')}
                 ${link('/about', 'About')}
                 ${link('/pricing', 'Pricing')}
                 ${link('/contact', 'Contact')}
@@ -45,6 +46,7 @@ function renderHeader(isPublic = true) {
 
     <div class="mobile-nav" id="mobileNav">
         <a href="/" data-link class="mobile-nav__link" onclick="closeMobileNav()">Home</a>
+        <a href="/spaces" data-link class="mobile-nav__link" onclick="closeMobileNav()">Spaces</a>
         <a href="/about" data-link class="mobile-nav__link" onclick="closeMobileNav()">About</a>
         <a href="/pricing" data-link class="mobile-nav__link" onclick="closeMobileNav()">Pricing</a>
         <a href="/contact" data-link class="mobile-nav__link" onclick="closeMobileNav()">Contact</a>

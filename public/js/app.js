@@ -7,6 +7,7 @@
 
     // ── Register all routes ──
     Router.register('/', renderHomePage);
+    Router.register('/spaces', renderSpacesPage);
     Router.register('/about', renderAboutPage);
     Router.register('/pricing', renderPricingPage);
     Router.register('/contact', renderContactPage);
