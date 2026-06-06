@@ -91,7 +91,7 @@ function _renderBookingLayout(app, spaces, bookedSlots, today) {
     const recentHtml = _renderBookingHistory();
 
     const content = `
-        <div style="position:relative;width:100%;height:0;padding-top:100%;box-shadow:0 2px 8px 0 rgba(63,69,81,0.16);margin-bottom:var(--space-8);overflow:hidden;border-radius:var(--radius-lg);will-change:transform">
+        <div style="position:relative;width:100%;height:0;padding-top:56.25%;box-shadow:0 2px 8px 0 rgba(63,69,81,0.16);margin-bottom:var(--space-8);overflow:hidden;border-radius:var(--radius-lg);will-change:transform">
             <iframe loading="lazy" style="position:absolute;width:100%;height:100%;top:0;left:0;border:none;padding:0;margin:0"
                 src="https://www.canva.com/design/DAHI25uoaRk/AY4BCaFIx_r0gYDAHJKdrQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
             </iframe>
