@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-05 16:05:07 */
+/* MugTuon Bundle — generated 2026-06-06 10:18:33 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -3924,10 +3924,10 @@ function _renderBookingLayout(app, spaces, bookedSlots, today) {
     const recentHtml = _renderBookingHistory();
 
     const content = `
-        <div style="margin-bottom:var(--space-8)">
-            <img src="images/availability-guide.png"
-                 alt="MugTuon Availability Guide"
-                 style="width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);display:block">
+        <div style="position:relative;width:100%;height:0;padding-top:100%;box-shadow:0 2px 8px 0 rgba(63,69,81,0.16);margin-bottom:var(--space-8);overflow:hidden;border-radius:var(--radius-lg);will-change:transform">
+            <iframe loading="lazy" style="position:absolute;width:100%;height:100%;top:0;left:0;border:none;padding:0;margin:0"
+                src="https://www.canva.com/design/DAHI25uoaRk/AY4BCaFIx_r0gYDAHJKdrQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+            </iframe>
         </div>
 
         <div class="booking-layout">

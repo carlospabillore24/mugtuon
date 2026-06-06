@@ -905,7 +905,7 @@
     transition: all var(--duration-fast);
 }
 
-.time-slot:hover:not(.time-slot--booked) {
+.time-slot:hover:not(.time-slot--booked):not(.time-slot--past) {
     border-color: var(--color-accent);
     color: var(--color-accent);
 }
@@ -921,6 +921,13 @@
     color: var(--color-text-muted);
     cursor: not-allowed;
     text-decoration: line-through;
+}
+
+.time-slot--past {
+    background: var(--color-border-light);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 
 /* ── Charts placeholder ── */
