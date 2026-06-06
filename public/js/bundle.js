@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-06 13:46:16 */
+/* MugTuon Bundle — generated 2026-06-06 13:48:43 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -1581,6 +1581,11 @@ function renderSpacesPage(app) {
 
     <section class="section" style="padding-top:var(--space-10)">
         <div class="container">
+            <div style="position:relative;width:100%;height:0;padding-top:56.25%;box-shadow:0 2px 8px 0 rgba(63,69,81,0.16);margin-bottom:var(--space-10);overflow:hidden;border-radius:var(--radius-lg);will-change:transform">
+                <iframe loading="lazy" style="position:absolute;width:100%;height:100%;top:0;left:0;border:none;padding:0;margin:0"
+                    src="https://www.canva.com/design/DAHI25uoaRk/AY4BCaFIx_r0gYDAHJKdrQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                </iframe>
+            </div>
             <div id="spacesFilterBar" style="display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-8);justify-content:center">
                 <button class="btn btn--accent btn--sm spaces-type-filter active" data-filter="all" onclick="_filterPublicSpaces('all',this)">All Spaces</button>
             </div>
