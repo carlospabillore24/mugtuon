@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-06 10:34:37 */
+/* MugTuon Bundle — generated 2026-06-06 13:08:32 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -1190,33 +1190,7 @@ function renderHomePage(app) {
                 </div>
 
                 <div class="hero__visual">
-                    <div class="hero__dashboard-preview">
-                        <div class="mock-header">
-                            <div class="mock-dots">
-                                <div class="mock-dot mock-dot--red"></div>
-                                <div class="mock-dot mock-dot--yellow"></div>
-                                <div class="mock-dot mock-dot--green"></div>
-                            </div>
-                            <span style="font-size:12px;color:var(--color-text-muted)">Live Community</span>
-                        </div>
-                        <div class="mock-stats">
-                            <div class="mock-stat-card">
-                                <div class="mock-stat-card__label">Members</div>
-                                <div class="mock-stat-card__value" id="hero-mock-members">—</div>
-                            </div>
-                            <div class="mock-stat-card">
-                                <div class="mock-stat-card__label">Studying Now</div>
-                                <div class="mock-stat-card__value" id="hero-mock-active">—</div>
-                            </div>
-                            <div class="mock-stat-card">
-                                <div class="mock-stat-card__label">Study Hours</div>
-                                <div class="mock-stat-card__value" id="hero-mock-hours">—</div>
-                            </div>
-                        </div>
-                        <div class="mock-chart">
-                            ${barHeights.map(h => `<div class="mock-bar" style="height:${h}%"></div>`).join('')}
-                        </div>
-                    </div>
+                    <img src="images/hero-cafe.jpg" alt="MugTuon Study Hub Interior" style="width:100%;border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);object-fit:cover;max-height:480px">
                 </div>
             </div>
         </div>
