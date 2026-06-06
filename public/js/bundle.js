@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-06 13:48:43 */
+/* MugTuon Bundle — generated 2026-06-06 13:50:53 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -1601,7 +1601,7 @@ function renderSpacesPage(app) {
                 <div class="section__eyebrow">Amenities</div>
                 <h2 class="section__title">Everything you need to focus</h2>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-6);max-width:800px;margin:0 auto">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);max-width:800px;margin:0 auto">
                 <div class="card reveal" style="text-align:center;padding:var(--space-6)">
                     <div style="font-size:28px;margin-bottom:var(--space-3)">💡</div>
                     <div style="font-weight:var(--weight-semibold);font-size:var(--text-sm)">Desk Lamps</div>
