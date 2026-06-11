@@ -13,7 +13,7 @@ function generate_qr_png(string $data, int $size = 300): string {
 
     $img = imagecreatetruecolor($imgSize, $imgSize);
     $white = imagecolorallocate($img, 255, 255, 255);
-    $black = imagecolorallocate($img, 84, 48, 32); // brand color #543020
+    $black = imagecolorallocate($img, 30, 57, 50); // brand color #1e3932 (House Green)
     imagefill($img, 0, 0, $white);
 
     $offset = 4 * $scale;

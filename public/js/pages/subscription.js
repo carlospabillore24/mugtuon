@@ -160,16 +160,16 @@ function downloadReceipt(payment, planName) {
 <!DOCTYPE html>
 <html><head><title>Receipt</title>
 <style>
-    body { font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; color: #1a1612; }
-    .header { text-align: center; border-bottom: 2px solid #543020; padding-bottom: 20px; margin-bottom: 30px; }
-    .header h1 { color: #543020; margin: 0; font-size: 24px; }
-    .header p { color: #6b5e54; margin: 5px 0 0; font-size: 14px; }
-    .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e8e3df; font-size: 14px; }
-    .row .label { color: #6b5e54; }
+    body { font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; color: rgba(0,0,0,0.87); letter-spacing: -0.01em; }
+    .header { text-align: center; border-bottom: 2px solid #006241; padding-bottom: 20px; margin-bottom: 30px; }
+    .header h1 { color: #006241; margin: 0; font-size: 24px; }
+    .header p { color: rgba(0,0,0,0.58); margin: 5px 0 0; font-size: 14px; }
+    .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eae7e1; font-size: 14px; }
+    .row .label { color: rgba(0,0,0,0.58); }
     .row .value { font-weight: 600; }
-    .total { display: flex; justify-content: space-between; padding: 15px 0; margin-top: 10px; font-size: 18px; font-weight: 700; border-top: 2px solid #543020; }
-    .total .amount { color: #004239; }
-    .footer { text-align: center; margin-top: 40px; font-size: 12px; color: #9b8e84; }
+    .total { display: flex; justify-content: space-between; padding: 15px 0; margin-top: 10px; font-size: 18px; font-weight: 700; border-top: 2px solid #006241; }
+    .total .amount { color: #00754a; }
+    .footer { text-align: center; margin-top: 40px; font-size: 12px; color: rgba(0,0,0,0.44); }
     @media print { body { margin: 0; } }
 </style></head><body>
     <div class="header">
@@ -183,7 +183,7 @@ function downloadReceipt(payment, planName) {
     <div class="row"><span class="label">Plan</span><span class="value">${planName}</span></div>
     <div class="row"><span class="label">Payment Method</span><span class="value" style="text-transform:capitalize">${payment.payment_method || 'N/A'}</span></div>
     <div class="row"><span class="label">Reference No.</span><span class="value">${payment.reference_number || 'N/A'}</span></div>
-    <div class="row"><span class="label">Status</span><span class="value" style="color:#1a7a5c">Completed</span></div>
+    <div class="row"><span class="label">Status</span><span class="value" style="color:#00754a">Completed</span></div>
     <div class="total"><span>Total Paid</span><span class="amount">PHP ${Number(payment.amount).toLocaleString(undefined, {minimumFractionDigits:2})}</span></div>
     <div class="footer">
         <p>Thank you for your payment!</p>

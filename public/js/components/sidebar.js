@@ -106,7 +106,7 @@ function loadUserAnnouncements() {
             const el = document.getElementById('user-announcements-sidebar');
             if (!el || !announcements.length) { if (el) el.innerHTML = ''; return; }
             const priorityIcon = { info: '📢', warning: '⚠️', urgent: '🚨' };
-            const priorityBg = { info: 'var(--color-accent-light, rgba(54,114,103,0.08))', warning: 'rgba(255,193,7,0.1)', urgent: 'rgba(220,53,69,0.1)' };
+            const priorityBg = { info: 'rgba(0,117,74,0.10)', warning: 'rgba(203,162,88,0.15)', urgent: 'rgba(200,32,20,0.10)' };
             el.innerHTML = announcements.slice(0, 3).map(a => `
                 <div style="background:${priorityBg[a.priority]||priorityBg.info};border-radius:var(--radius-md);padding:var(--space-3);margin-bottom:var(--space-2);font-size:var(--text-xs)">
                     <div style="font-weight:var(--weight-semibold);margin-bottom:2px">${priorityIcon[a.priority]||'📢'} ${Helpers.esc(a.title)}</div>

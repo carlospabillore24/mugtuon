@@ -32,7 +32,7 @@ async function loadLeaderboard(period, app) {
         ${topThree.length > 0 ? `
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);margin-bottom:var(--space-8)">
             ${topThree.map((u, i) => `
-                <div class="card card--elevated" style="text-align:center;padding:var(--space-8);${i===0?'border:2px solid #ffd700':''}">
+                <div class="card card--elevated" style="text-align:center;padding:var(--space-8);${i===0?'border:2px solid #cba258':''}">
                     <div style="font-size:${i===0?'40px':'32px'};margin-bottom:var(--space-3)">${['🥇','🥈','🥉'][i]}</div>
                     <div style="margin:0 auto var(--space-3)">${Helpers.renderAvatar(u.avatar_url, u.first_name, u.last_name, 'lg')}</div>
                     <h3 style="font-size:var(--text-base);margin-bottom:var(--space-1)">${Helpers.esc(u.first_name)} ${Helpers.esc(u.last_name)}</h3>

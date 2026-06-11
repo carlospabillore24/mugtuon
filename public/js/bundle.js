@@ -1,4 +1,4 @@
-/* MugTuon Bundle — generated 2026-06-06 13:50:53 */
+/* MugTuon Bundle — generated 2026-06-11 10:44:36 */
 
 // ── js/utils/store.js ──
 const Store = {
@@ -555,6 +555,12 @@ function renderHeader(isPublic = true) {
             <a href="/register" data-link class="btn btn--primary btn--full" onclick="closeMobileNav()">Get Started</a>
         `}
     </div>
+
+    <a href="${user ? '/bookings' : (currentPath === '/spaces' ? '/register' : '/spaces')}" data-link class="frap" aria-label="Book a space" title="Book a space">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/>
+        </svg>
+    </a>
     `;
 }
 
@@ -738,7 +744,7 @@ function loadUserAnnouncements() {
             const el = document.getElementById('user-announcements-sidebar');
             if (!el || !announcements.length) { if (el) el.innerHTML = ''; return; }
             const priorityIcon = { info: '📢', warning: '⚠️', urgent: '🚨' };
-            const priorityBg = { info: 'var(--color-accent-light, rgba(54,114,103,0.08))', warning: 'rgba(255,193,7,0.1)', urgent: 'rgba(220,53,69,0.1)' };
+            const priorityBg = { info: 'rgba(0,117,74,0.10)', warning: 'rgba(203,162,88,0.15)', urgent: 'rgba(200,32,20,0.10)' };
             el.innerHTML = announcements.slice(0, 3).map(a => `
                 <div style="background:${priorityBg[a.priority]||priorityBg.info};border-radius:var(--radius-md);padding:var(--space-3);margin-bottom:var(--space-2);font-size:var(--text-xs)">
                     <div style="font-weight:var(--weight-semibold);margin-bottom:2px">${priorityIcon[a.priority]||'📢'} ${Helpers.esc(a.title)}</div>
@@ -1154,12 +1160,12 @@ function renderHomePage(app) {
 
     <section class="hero" style="position:relative;overflow:hidden">
         <img src="images/hero-cafe.jpg" alt="" id="heroParallaxBg" style="position:absolute;inset:0;width:100%;height:120%;object-fit:cover;z-index:0;will-change:transform">
-        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(235,227,223,0.85) 0%,rgba(250,250,249,0.92) 100%);z-index:1"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(242,240,235,0.86) 0%,rgba(242,240,235,0.94) 100%);z-index:1"></div>
         <div class="container" style="position:relative;z-index:2">
             <div class="hero__inner">
                 <div class="hero__content">
                     <div class="hero__eyebrow hero-animate" style="opacity:0;transform:translateY(12px)" id="hero-active-now">
-                        <span style="width:8px;height:8px;border-radius:50%;background:#6bcb77;display:inline-block"></span>
+                        <span style="width:8px;height:8px;border-radius:50%;background:#00a862;display:inline-block"></span>
                         <span id="hero-active-count">Study smarter, together</span>
                     </div>
 
@@ -1718,7 +1724,7 @@ function _bookSpaceAction(spaceId) {
         modal.innerHTML = `
             <div style="background:var(--color-bg);border-radius:var(--radius-xl);width:100%;max-width:400px;box-shadow:var(--shadow-xl);overflow:hidden;transform:scale(0.95);opacity:0;transition:transform 300ms cubic-bezier(0.23,1,0.32,1),opacity 300ms cubic-bezier(0.23,1,0.32,1)" id="auth-prompt-inner" onclick="event.stopPropagation()">
                 <div style="padding:var(--space-8);text-align:center">
-                    <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,66,57,0.08);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto var(--space-4)">🔒</div>
+                    <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,117,74,0.08);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto var(--space-4)">🔒</div>
                     <h3 style="margin-bottom:var(--space-2)">Sign in to book</h3>
                     <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">Create a free account or sign in to reserve your study space.</p>
                     <div style="display:flex;flex-direction:column;gap:var(--space-3)">
@@ -3220,7 +3226,7 @@ async function renderDashboardPage(app) {
     const isFree    = planPrice === 0;
     const isPro     = planName === 'Pro';
     const planIcon  = isFree ? '✨' : isPro ? '👑' : '🎓';
-    const planColor = isFree ? 'var(--color-text-secondary)' : isPro ? '#b8860b' : 'var(--color-accent)';
+    const planColor = isFree ? 'var(--color-text-secondary)' : isPro ? 'var(--color-gold)' : 'var(--color-accent)';
     const expiryLine = isFree
         ? '<span style="font-size:var(--text-xs);color:var(--color-text-secondary)">Free forever</span>'
         : expiresAt
@@ -3328,7 +3334,7 @@ async function renderDashboardPage(app) {
                         ` : upcomingBookings.map(b => `
                             <div style="padding:var(--space-4) var(--space-6);border-bottom:1px solid var(--color-border-light);display:flex;align-items:center;justify-content:space-between">
                                 <div style="display:flex;align-items:center;gap:var(--space-4)">
-                                    <div style="width:40px;height:40px;border-radius:var(--radius-md);background:rgba(0,66,57,0.08);display:flex;align-items:center;justify-content:center">📅</div>
+                                    <div style="width:40px;height:40px;border-radius:var(--radius-full);background:rgba(0,117,74,0.08);display:flex;align-items:center;justify-content:center">📅</div>
                                     <div>
                                         <div style="font-weight:var(--weight-medium);font-size:var(--text-sm)">${b.space_name || 'Space'}</div>
                                         <div style="font-size:var(--text-xs);color:var(--color-text-muted)">${b.booking_date ? new Date(b.booking_date).toLocaleDateString('en-PH',{month:'short',day:'numeric'}) : ''}, ${b.start_time} – ${b.end_time}</div>
@@ -3444,7 +3450,7 @@ async function renderDashboardPage(app) {
         ob.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1200;display:flex;align-items:center;justify-content:center;padding:var(--space-4)';
         ob.innerHTML = `
             <div style="background:var(--color-bg);border-radius:var(--radius-xl);width:100%;max-width:480px;box-shadow:var(--shadow-xl);overflow:hidden" onclick="event.stopPropagation()">
-                <div style="background:linear-gradient(135deg,var(--color-primary),var(--color-accent));padding:var(--space-10);text-align:center;color:white">
+                <div style="background:var(--color-house);padding:var(--space-10);text-align:center;color:white">
                     <img src="images/logo-icon-dark.png" alt="MugTuon" style="width:72px;height:72px;border-radius:50%;margin-bottom:var(--space-4)">
                     <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2)">Welcome to MugTuon!</h2>
                     <p style="opacity:.85;font-size:var(--text-sm)">Your productivity journey starts here.</p>
@@ -3994,16 +4000,16 @@ function downloadReceipt(payment, planName) {
 <!DOCTYPE html>
 <html><head><title>Receipt</title>
 <style>
-    body { font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; color: #1a1612; }
-    .header { text-align: center; border-bottom: 2px solid #543020; padding-bottom: 20px; margin-bottom: 30px; }
-    .header h1 { color: #543020; margin: 0; font-size: 24px; }
-    .header p { color: #6b5e54; margin: 5px 0 0; font-size: 14px; }
-    .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e8e3df; font-size: 14px; }
-    .row .label { color: #6b5e54; }
+    body { font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; color: rgba(0,0,0,0.87); letter-spacing: -0.01em; }
+    .header { text-align: center; border-bottom: 2px solid #006241; padding-bottom: 20px; margin-bottom: 30px; }
+    .header h1 { color: #006241; margin: 0; font-size: 24px; }
+    .header p { color: rgba(0,0,0,0.58); margin: 5px 0 0; font-size: 14px; }
+    .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eae7e1; font-size: 14px; }
+    .row .label { color: rgba(0,0,0,0.58); }
     .row .value { font-weight: 600; }
-    .total { display: flex; justify-content: space-between; padding: 15px 0; margin-top: 10px; font-size: 18px; font-weight: 700; border-top: 2px solid #543020; }
-    .total .amount { color: #004239; }
-    .footer { text-align: center; margin-top: 40px; font-size: 12px; color: #9b8e84; }
+    .total { display: flex; justify-content: space-between; padding: 15px 0; margin-top: 10px; font-size: 18px; font-weight: 700; border-top: 2px solid #006241; }
+    .total .amount { color: #00754a; }
+    .footer { text-align: center; margin-top: 40px; font-size: 12px; color: rgba(0,0,0,0.44); }
     @media print { body { margin: 0; } }
 </style></head><body>
     <div class="header">
@@ -4017,7 +4023,7 @@ function downloadReceipt(payment, planName) {
     <div class="row"><span class="label">Plan</span><span class="value">${planName}</span></div>
     <div class="row"><span class="label">Payment Method</span><span class="value" style="text-transform:capitalize">${payment.payment_method || 'N/A'}</span></div>
     <div class="row"><span class="label">Reference No.</span><span class="value">${payment.reference_number || 'N/A'}</span></div>
-    <div class="row"><span class="label">Status</span><span class="value" style="color:#1a7a5c">Completed</span></div>
+    <div class="row"><span class="label">Status</span><span class="value" style="color:#00754a">Completed</span></div>
     <div class="total"><span>Total Paid</span><span class="amount">PHP ${Number(payment.amount).toLocaleString(undefined, {minimumFractionDigits:2})}</span></div>
     <div class="footer">
         <p>Thank you for your payment!</p>
@@ -4717,7 +4723,7 @@ async function loadLeaderboard(period, app) {
         ${topThree.length > 0 ? `
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);margin-bottom:var(--space-8)">
             ${topThree.map((u, i) => `
-                <div class="card card--elevated" style="text-align:center;padding:var(--space-8);${i===0?'border:2px solid #ffd700':''}">
+                <div class="card card--elevated" style="text-align:center;padding:var(--space-8);${i===0?'border:2px solid #cba258':''}">
                     <div style="font-size:${i===0?'40px':'32px'};margin-bottom:var(--space-3)">${['🥇','🥈','🥉'][i]}</div>
                     <div style="margin:0 auto var(--space-3)">${Helpers.renderAvatar(u.avatar_url, u.first_name, u.last_name, 'lg')}</div>
                     <h3 style="font-size:var(--text-base);margin-bottom:var(--space-1)">${Helpers.esc(u.first_name)} ${Helpers.esc(u.last_name)}</h3>
@@ -5762,7 +5768,7 @@ function _renderAnalyticsData(data, userId) {
                     </div>
                 </div>
                 <div style="height:10px;background:var(--color-surface);border-radius:5px;overflow:hidden;margin-bottom:4px">
-                    <div style="height:100%;width:${xpPct}%;background:linear-gradient(90deg,var(--color-primary),var(--color-accent));border-radius:5px"></div>
+                    <div style="height:100%;width:${xpPct}%;background:var(--color-gold);border-radius:5px"></div>
                 </div>
                 <div style="font-size:var(--text-xs);color:var(--color-text-muted)">${xpToNxt} XP to Level ${level+1}</div>
             </div>
@@ -9105,8 +9111,8 @@ function render404Page(app) {
     // ── Start router ──
     Router.init();
 
-    console.log('%c☕ MugTuon Learning Hub & Cafe', 'font-size:16px;font-weight:bold;color:#543020');
-    console.log('%cPlatform ready.', 'color:#367267');
+    console.log('%c☕ MugTuon Learning Hub & Cafe', 'font-size:16px;font-weight:bold;color:#006241');
+    console.log('%cPlatform ready.', 'color:#00754a');
 })();
 
 

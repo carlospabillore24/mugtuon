@@ -4,30 +4,32 @@ function renderHomePage(app) {
     app.innerHTML = `
     ${renderHeader()}
 
-    <section class="hero">
-        <div class="container">
+    <section class="hero" style="position:relative;overflow:hidden">
+        <img src="images/hero-cafe.jpg" alt="" id="heroParallaxBg" style="position:absolute;inset:0;width:100%;height:120%;object-fit:cover;z-index:0;will-change:transform">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(242,240,235,0.86) 0%,rgba(242,240,235,0.94) 100%);z-index:1"></div>
+        <div class="container" style="position:relative;z-index:2">
             <div class="hero__inner">
                 <div class="hero__content">
-                    <div class="hero__eyebrow" id="hero-active-now">
-                        <span style="width:8px;height:8px;border-radius:50%;background:#6bcb77;display:inline-block"></span>
+                    <div class="hero__eyebrow hero-animate" style="opacity:0;transform:translateY(12px)" id="hero-active-now">
+                        <span style="width:8px;height:8px;border-radius:50%;background:#00a862;display:inline-block"></span>
                         <span id="hero-active-count">Study smarter, together</span>
                     </div>
 
-                    <h1 class="hero__title">
+                    <h1 class="hero__title hero-animate" style="opacity:0;transform:translateY(16px)">
                         Study Smarter,<br>
                         <span>Together.</span>
                     </h1>
 
-                    <p class="hero__desc">
+                    <p class="hero__desc hero-animate" style="opacity:0;transform:translateY(16px)">
                         MugTuon is your premium study hub and coworking cafe. Book spaces, track your focus, compete on leaderboards, and fuel your productivity with great coffee.
                     </p>
 
-                    <div class="hero__actions">
+                    <div class="hero__actions hero-animate" style="opacity:0;transform:translateY(16px)">
                         <a href="/register" data-link class="btn btn--accent btn--lg">Start for Free</a>
                         <a href="/pricing" data-link class="btn btn--outline btn--lg">View Plans</a>
                     </div>
 
-                    <div class="hero__stats">
+                    <div class="hero__stats hero-animate" style="opacity:0;transform:translateY(16px)">
                         <div>
                             <div class="hero__stat-value" data-counter="0">&mdash;</div>
                             <div class="hero__stat-label">Active Members</div>
@@ -43,7 +45,7 @@ function renderHomePage(app) {
                     </div>
                 </div>
 
-                <div class="hero__visual">
+                <div class="hero__visual hero-animate" style="opacity:0;transform:translateY(24px)">
                     <div class="hero__dashboard-preview">
                         <div class="mock-header">
                             <div class="mock-dots">
@@ -240,6 +242,35 @@ function renderHomePage(app) {
     `;
 
     initHeaderScroll();
+
+    // ── Hero entrance animation (staggered fade-up) ──────────────────────
+    requestAnimationFrame(() => {
+        const heroEls = document.querySelectorAll('.hero-animate');
+        heroEls.forEach((el, i) => {
+            setTimeout(() => {
+                el.style.transition = `opacity 600ms cubic-bezier(0.23,1,0.32,1), transform 600ms cubic-bezier(0.23,1,0.32,1)`;
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 80 * i);
+        });
+    });
+
+    // ── Hero parallax on scroll (background image moves slower) ──────────
+    const parallaxBg = document.getElementById('heroParallaxBg');
+    if (parallaxBg) {
+        let ticking = false;
+        const onScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+                    parallaxBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+    }
 
     const observer = Helpers.observeReveal();
 

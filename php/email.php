@@ -20,7 +20,7 @@ function email_wrap_html(string $title, string $bodyContent): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f0eb;padding:40px 20px">
     <tr><td align="center">
       <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
-        <tr><td style="background:#543020;padding:28px 32px;text-align:center">
+        <tr><td style="background:#1e3932;padding:28px 32px;text-align:center">
           <span style="font-size:28px">&#9749;</span>
           <span style="color:#ffffff;font-size:20px;font-weight:700;margin-left:8px;vertical-align:middle">MugTuon</span>
         </td></tr>
@@ -137,7 +137,7 @@ function email_password_reset(string $to, string $name, string $resetLink): arra
         '<p>Hi <strong>' . esc($name) . '</strong>,</p>
          <p>We received a request to reset your password. Click the button below to set a new one:</p>
          <div style="text-align:center;margin:28px 0">
-           <a href="' . esc($resetLink) . '" style="display:inline-block;padding:14px 36px;background:#543020;color:#ffffff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px">Reset Password</a>
+           <a href="' . esc($resetLink) . '" style="display:inline-block;padding:14px 36px;background:#00754a;color:#ffffff;text-decoration:none;border-radius:50px;font-weight:600;font-size:15px">Reset Password</a>
          </div>
          <p style="font-size:13px;color:#888">This link expires in <strong>1 hour</strong>. If you didn\'t request this, you can safely ignore this email.</p>
          <p style="font-size:12px;color:#aaa;margin-top:20px;word-break:break-all">Link: ' . esc($resetLink) . '</p>');
@@ -197,7 +197,7 @@ function email_welcome_verification(string $to, string $name, string $verifyLink
         '<p>Hi <strong>' . esc($name) . '</strong>, welcome aboard!</p>
          <p>Please verify your email address to unlock all features:</p>
          <div style="text-align:center;margin:28px 0">
-           <a href="' . esc($verifyLink) . '" style="display:inline-block;padding:14px 36px;background:#543020;color:#ffffff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px">Verify Email</a>
+           <a href="' . esc($verifyLink) . '" style="display:inline-block;padding:14px 36px;background:#00754a;color:#ffffff;text-decoration:none;border-radius:50px;font-weight:600;font-size:15px">Verify Email</a>
          </div>
          <p style="font-size:13px;color:#888">This link expires in <strong>24 hours</strong>. If you didn\'t create an account, you can safely ignore this email.</p>
          <p style="font-size:12px;color:#aaa;margin-top:20px;word-break:break-all">Link: ' . esc($verifyLink) . '</p>');
@@ -212,7 +212,7 @@ function email_renewal_reminder(string $to, string $name, string $planName, stri
          <p>Your <strong>' . esc($planName) . '</strong> subscription expires on <strong>' . $expiry . '</strong> (' . $daysLeft . ' day' . $s . ' left).</p>
          <p>To keep your premium access, please renew before it expires.</p>
          <div style="text-align:center;margin:28px 0">
-           <a href="' . base_url() . '/pricing" style="display:inline-block;padding:14px 36px;background:#543020;color:#ffffff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px">Renew Now</a>
+           <a href="' . base_url() . '/pricing" style="display:inline-block;padding:14px 36px;background:#00754a;color:#ffffff;text-decoration:none;border-radius:50px;font-weight:600;font-size:15px">Renew Now</a>
          </div>');
 }
 

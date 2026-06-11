@@ -36,7 +36,7 @@ async function renderDashboardPage(app) {
     const isFree    = planPrice === 0;
     const isPro     = planName === 'Pro';
     const planIcon  = isFree ? '✨' : isPro ? '👑' : '🎓';
-    const planColor = isFree ? 'var(--color-text-secondary)' : isPro ? '#b8860b' : 'var(--color-accent)';
+    const planColor = isFree ? 'var(--color-text-secondary)' : isPro ? 'var(--color-gold)' : 'var(--color-accent)';
     const expiryLine = isFree
         ? '<span style="font-size:var(--text-xs);color:var(--color-text-secondary)">Free forever</span>'
         : expiresAt
@@ -144,7 +144,7 @@ async function renderDashboardPage(app) {
                         ` : upcomingBookings.map(b => `
                             <div style="padding:var(--space-4) var(--space-6);border-bottom:1px solid var(--color-border-light);display:flex;align-items:center;justify-content:space-between">
                                 <div style="display:flex;align-items:center;gap:var(--space-4)">
-                                    <div style="width:40px;height:40px;border-radius:var(--radius-md);background:rgba(0,66,57,0.08);display:flex;align-items:center;justify-content:center">📅</div>
+                                    <div style="width:40px;height:40px;border-radius:var(--radius-full);background:rgba(0,117,74,0.08);display:flex;align-items:center;justify-content:center">📅</div>
                                     <div>
                                         <div style="font-weight:var(--weight-medium);font-size:var(--text-sm)">${b.space_name || 'Space'}</div>
                                         <div style="font-size:var(--text-xs);color:var(--color-text-muted)">${b.booking_date ? new Date(b.booking_date).toLocaleDateString('en-PH',{month:'short',day:'numeric'}) : ''}, ${b.start_time} – ${b.end_time}</div>
@@ -260,7 +260,7 @@ async function renderDashboardPage(app) {
         ob.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1200;display:flex;align-items:center;justify-content:center;padding:var(--space-4)';
         ob.innerHTML = `
             <div style="background:var(--color-bg);border-radius:var(--radius-xl);width:100%;max-width:480px;box-shadow:var(--shadow-xl);overflow:hidden" onclick="event.stopPropagation()">
-                <div style="background:linear-gradient(135deg,var(--color-primary),var(--color-accent));padding:var(--space-10);text-align:center;color:white">
+                <div style="background:var(--color-house);padding:var(--space-10);text-align:center;color:white">
                     <img src="images/logo-icon-dark.png" alt="MugTuon" style="width:72px;height:72px;border-radius:50%;margin-bottom:var(--space-4)">
                     <h2 style="font-size:var(--text-2xl);margin-bottom:var(--space-2)">Welcome to MugTuon!</h2>
                     <p style="opacity:.85;font-size:var(--text-sm)">Your productivity journey starts here.</p>

@@ -47,6 +47,6 @@
     // ── Start router ──
     Router.init();
 
-    console.log('%c☕ MugTuon Learning Hub & Cafe', 'font-size:16px;font-weight:bold;color:#543020');
-    console.log('%cPlatform ready.', 'color:#367267');
+    console.log('%c☕ MugTuon Learning Hub & Cafe', 'font-size:16px;font-weight:bold;color:#006241');
+    console.log('%cPlatform ready.', 'color:#00754a');
 })();

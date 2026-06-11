@@ -152,7 +152,7 @@ function _bookSpaceAction(spaceId) {
         modal.innerHTML = `
             <div style="background:var(--color-bg);border-radius:var(--radius-xl);width:100%;max-width:400px;box-shadow:var(--shadow-xl);overflow:hidden;transform:scale(0.95);opacity:0;transition:transform 300ms cubic-bezier(0.23,1,0.32,1),opacity 300ms cubic-bezier(0.23,1,0.32,1)" id="auth-prompt-inner" onclick="event.stopPropagation()">
                 <div style="padding:var(--space-8);text-align:center">
-                    <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,66,57,0.08);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto var(--space-4)">🔒</div>
+                    <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,117,74,0.08);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto var(--space-4)">🔒</div>
                     <h3 style="margin-bottom:var(--space-2)">Sign in to book</h3>
                     <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">Create a free account or sign in to reserve your study space.</p>
                     <div style="display:flex;flex-direction:column;gap:var(--space-3)">

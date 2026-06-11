@@ -463,7 +463,7 @@ function _renderAnalyticsData(data, userId) {
                     </div>
                 </div>
                 <div style="height:10px;background:var(--color-surface);border-radius:5px;overflow:hidden;margin-bottom:4px">
-                    <div style="height:100%;width:${xpPct}%;background:linear-gradient(90deg,var(--color-primary),var(--color-accent));border-radius:5px"></div>
+                    <div style="height:100%;width:${xpPct}%;background:var(--color-gold);border-radius:5px"></div>
                 </div>
                 <div style="font-size:var(--text-xs);color:var(--color-text-muted)">${xpToNxt} XP to Level ${level+1}</div>
             </div>

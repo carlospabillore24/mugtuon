@@ -1,4 +1,4 @@
-const CACHE_VERSION = '2026-06-06-spaces-v1';
+const CACHE_VERSION = '2026-06-11-green-redesign-v1';
 const CACHE_NAME = 'mugtuon-v' + CACHE_VERSION;
 const STATIC_ASSETS = [
   '/',
